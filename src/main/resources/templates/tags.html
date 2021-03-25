@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"><!--移动端的界面比例设计-->
+    <title>标签页</title>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.js"></script>
+    <!--引入Semantic的css样式-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <!--引入Semantic.js-->
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <link rel="stylesheet" href="/css/me.css"> <!--引入的css样式,里面可以定义背景-->
+</head>
+<body>
+<!--导航-->
+    <nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small">   <!--ui:代表ui组件，inverted表示底色翻转,attached去掉四周圆角-->
+        <div class="ui container"> <!--位置偏移-->
+            <div class="ui inverted secondary stackable menu" >
+                <h2 class="ui teal header item">Blog</h2>
+                <a href="#" class="m-item item m-mobile-hide"><i class="mini home icon m-style" ></i>首页</a>
+                <a href="#" class="m-item item m-mobile-hide"><i class="mini idea icon m-style"></i>分类</a>
+                <a href="#" class="m-item active item m-mobile-hide"><i class="mini tags icon m-style"></i>标签</a>
+                <a href="#" class="m-item item m-mobile-hide"><i class="mini clone icon m-style"></i>归档</a >
+                <a href="#" class="m-item item m-mobile-hide"><i class="mini info icon m-style"></i>关于我</a >
+                <div class="right item">  <!--靠右-->
+                    <div class="ui m-item icon input  m-mobile-hide ">
+                        <input type="text" placeholder="搜索内容">
+                        <i class="inverted circular search link icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="javascript:void(0)" id="menuButton" class="ui black icon m-mobile-show "style="position: absolute;top:1em;right:1em">
+            <i class="sidebar icon"></i>
+        </a>
+    </nav>
+
+<!--中间内容-->
+    <div class="m-padded-tb-big m-container-small ">
+       <div class="ui container">
+<!--           header-->
+           <div class="ui top attached segment">
+               <div class="ui middle aligned two column grid">  <!--指定下面的div都占两列，middle aligned垂直方向的居中-->
+                   <div class="column">
+                       <div class="ui teal header">标签</div>
+                   </div>
+                   <div class="right aligned column">
+                       共 <h2 class="ui orange header m-line-block m-text-thin">14</h2> 个
+                   </div>
+               </div>
+           </div>
+           <!--标签-->
+           <div class="ui attached m-padded-tb-large segment ">
+               <a href="">
+                       <div class="ui red horizontal large label m-margin-tb-tiny">
+                           文学
+                           <div class="detail">20</div>
+                       </div>
+                   </a>
+                 <a href="">
+                   <div class="ui  horizontal large label m-margin-tb-tiny">
+                       文学
+                       <div class="detail">20</div>
+                   </div>
+               </a>
+               <a href="">
+                   <div class="ui  horizontal large label m-margin-tb-tiny">
+                       文学
+                       <div class="detail">20</div>
+                   </div>
+               </a>
+               <a href="">
+                   <div class="ui  horizontal large label m-margin-tb-tiny">
+                       文学
+                       <div class="detail">20</div>
+                   </div>
+               </a>
+               <a href="">
+                   <div class="ui  horizontal large label m-margin-tb-tiny">
+                       文学
+                       <div class="detail">20</div>
+                   </div>
+               </a>
+               <a href="">
+                   <div class="ui  horizontal large label m-margin-tb-tiny">
+                       文学
+                       <div class="detail">20</div>
+                   </div>
+               </a>
+               <a href="">
+                   <div class="ui  horizontal large label m-margin-tb-tiny">
+                       文学
+                       <div class="detail">20</div>
+                   </div>
+               </a>
+               <a href="">
+                   <div class="ui  horizontal large label m-margin-tb-tiny">
+                       文学
+                       <div class="detail">20</div>
+                   </div>
+               </a>
+               <a href="">
+                   <div class="ui  horizontal large label m-margin-tb-tiny">
+                       文学
+                       <div class="detail">20</div>
+                   </div>
+               </a>
+               <a href="">
+                   <div class="ui  horizontal large label m-margin-tb-tiny">
+                       文学
+                       <div class="detail">20</div>
+                   </div>
+               </a>
+               <a href="">
+                   <div class="ui  horizontal large label m-margin-tb-tiny">
+                       文学
+                       <div class="detail">20</div>
+                   </div>
+               </a>
+               <a href="">
+                   <div class="ui  horizontal large label m-margin-tb-tiny">
+                       文学
+                       <div class="detail">20</div>
+                   </div>
+               </a>
+
+
+           </div>
+           <!--content-->
+           <div class="ui blue top attached segment">
+               <div class="ui m-padded-lf m-padded-clear vertical segment">
+                       <div class="ui mobile reversed stackable grid">
+                           <div class=" eleven wide column">
+                               <h3 class="ui header">
+                                   樱花节 （日本樱花节）
+                               </h3>
+                               <p class="m-text">   樱花节(Cherry Blossom Festival)，也称樱花祭，是日本每年的3月15日到4月15日的节日。樱花自开花至花残只有七天，因而也有称作樱花七日的说法。
+                                   这是日本自南至北樱花开放的季节，人们在樱花树下摆上丰盛的酒宴，或合家欢聚一堂，或邀请三五好友，一边吟诗作画，一边开怀畅饮，一醉方休。
+                               </p>
+                               <div class="ui stackable grid ">
+                                   <div class="row">
+                                       <div class="eleven wide column">
+                                           <div class="ui mini horizontal link list">
+                                               <div class="item">
+                                                   <img src="/images/bk.jpg" alt="" class="ui avatar image">
+                                                   <div class="content"><a href="#" class="header ">sola433</a></div>
+                                               </div>
+                                               <div class="item">
+                                                   <i class="calendar icon"></i>2021-3-24
+                                               </div>
+                                               <div class="item">
+                                                   <i class="eye icon"></i>2398
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div class="five wide column right aligned">
+                                           <a href="#" class="ui basic blue label ">科普知识</a>
+                                       </div>
+                                   </div>
+                                  <div class="row">
+                                      <div class="column">
+                                          <a href="">
+                                              <div class="ui red horizontal large label m-margin-tb-tiny m-margin-top-large ">
+                                                  文学
+                                              </div>
+                                          </a>
+                                      </div>
+                                  </div>
+                               </div>
+                           </div>
+                           <div class=" five wide column">
+                               <a href="#" target="_blank">  <!--打开新页面-->
+                                   <img src="/images/bk.jpg" alt="这是图片" class="ui rounded image"  >  <!--设置圆角的-->
+                               </a>
+                           </div>
+                       </div>
+                   </div>
+               <div class="ui m-padded-lf m-padded-clear vertical segment">
+                   <div class="ui mobile reversed stackable grid">
+                       <div class=" eleven wide column">
+                           <h3 class="ui header">
+                               樱花节 （日本樱花节）
+                           </h3>
+                           <p class="m-text">   樱花节(Cherry Blossom Festival)，也称樱花祭，是日本每年的3月15日到4月15日的节日。樱花自开花至花残只有七天，因而也有称作樱花七日的说法。
+                               这是日本自南至北樱花开放的季节，人们在樱花树下摆上丰盛的酒宴，或合家欢聚一堂，或邀请三五好友，一边吟诗作画，一边开怀畅饮，一醉方休。
+                           </p>
+                           <div class="ui stackable grid ">
+                               <div class="row">
+                                   <div class="eleven wide column">
+                                       <div class="ui mini horizontal link list">
+                                           <div class="item">
+                                               <img src="/images/bk.jpg" alt="" class="ui avatar image">
+                                               <div class="content"><a href="#" class="header ">sola433</a></div>
+                                           </div>
+                                           <div class="item">
+                                               <i class="calendar icon"></i>2021-3-24
+                                           </div>
+                                           <div class="item">
+                                               <i class="eye icon"></i>2398
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="five wide column right aligned">
+                                       <a href="#" class="ui basic blue label ">科普知识</a>
+                                   </div>
+                               </div>
+                               <div class="row">
+                                   <div class="column">
+                                       <a href="">
+                                           <div class="ui red horizontal large label m-margin-tb-tiny ">
+                                               文学
+                                           </div>
+                                       </a>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <div class=" five wide column">
+                           <a href="#" target="_blank">  <!--打开新页面-->
+                               <img src="/images/bk.jpg" alt="这是图片" class="ui rounded image"  >  <!--设置圆角的-->
+                           </a>
+                       </div>
+                   </div>
+               </div>
+               <div class="ui m-padded-lf m-padded-clear vertical segment">
+                   <div class="ui mobile reversed stackable grid">
+                       <div class=" eleven wide column">
+                           <h3 class="ui header">
+                               樱花节 （日本樱花节）
+                           </h3>
+                           <p class="m-text">   樱花节(Cherry Blossom Festival)，也称樱花祭，是日本每年的3月15日到4月15日的节日。樱花自开花至花残只有七天，因而也有称作樱花七日的说法。
+                               这是日本自南至北樱花开放的季节，人们在樱花树下摆上丰盛的酒宴，或合家欢聚一堂，或邀请三五好友，一边吟诗作画，一边开怀畅饮，一醉方休。
+                           </p>
+                           <div class="ui stackable grid ">
+                               <div class="row">
+                                   <div class="eleven wide column">
+                                       <div class="ui mini horizontal link list">
+                                           <div class="item">
+                                               <img src="/images/bk.jpg" alt="" class="ui avatar image">
+                                               <div class="content"><a href="#" class="header ">sola433</a></div>
+                                           </div>
+                                           <div class="item">
+                                               <i class="calendar icon"></i>2021-3-24
+                                           </div>
+                                           <div class="item">
+                                               <i class="eye icon"></i>2398
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="five wide column right aligned">
+                                       <a href="#" class="ui basic blue label ">科普知识</a>
+                                   </div>
+                               </div>
+                               <div class="row">
+                                   <div class="column">
+                                       <a href="">
+                                           <div class="ui red horizontal large label m-margin-tb-tiny ">
+                                               文学
+                                           </div>
+                                       </a>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <div class=" five wide column">
+                           <a href="#" target="_blank">  <!--打开新页面-->
+                               <img src="/images/bk.jpg" alt="这是图片" class="ui rounded image"  >  <!--设置圆角的-->
+                           </a>
+                       </div>
+                   </div>
+               </div>
+               <div class="ui m-padded-lf m-padded-clear vertical segment">
+                   <div class="ui mobile reversed stackable grid">
+                       <div class=" eleven wide column">
+                           <h3 class="ui header">
+                               樱花节 （日本樱花节）
+                           </h3>
+                           <p class="m-text">   樱花节(Cherry Blossom Festival)，也称樱花祭，是日本每年的3月15日到4月15日的节日。樱花自开花至花残只有七天，因而也有称作樱花七日的说法。
+                               这是日本自南至北樱花开放的季节，人们在樱花树下摆上丰盛的酒宴，或合家欢聚一堂，或邀请三五好友，一边吟诗作画，一边开怀畅饮，一醉方休。
+                           </p>
+                           <div class="ui stackable grid ">
+                               <div class="row">
+                                   <div class="eleven wide column">
+                                       <div class="ui mini horizontal link list">
+                                           <div class="item">
+                                               <img src="/images/bk.jpg" alt="" class="ui avatar image">
+                                               <div class="content"><a href="#" class="header ">sola433</a></div>
+                                           </div>
+                                           <div class="item">
+                                               <i class="calendar icon"></i>2021-3-24
+                                           </div>
+                                           <div class="item">
+                                               <i class="eye icon"></i>2398
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="five wide column right aligned">
+                                       <a href="#" class="ui basic blue label ">科普知识</a>
+                                   </div>
+                               </div>
+                               <div class="row">
+                                   <div class="column">
+                                       <a href="">
+                                           <div class="ui red horizontal large label m-margin-tb-tiny ">
+                                               文学
+                                           </div>
+                                       </a>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <div class=" five wide column">
+                           <a href="#" target="_blank">  <!--打开新页面-->
+                               <img src="/images/bk.jpg" alt="这是图片" class="ui rounded image"  >  <!--设置圆角的-->
+                           </a>
+                       </div>
+                   </div>
+               </div>
+               <div class="ui m-padded-lf m-padded-clear vertical segment">
+                   <div class="ui mobile reversed stackable grid">
+                       <div class=" eleven wide column">
+                           <h3 class="ui header">
+                               樱花节 （日本樱花节）
+                           </h3>
+                           <p class="m-text">   樱花节(Cherry Blossom Festival)，也称樱花祭，是日本每年的3月15日到4月15日的节日。樱花自开花至花残只有七天，因而也有称作樱花七日的说法。
+                               这是日本自南至北樱花开放的季节，人们在樱花树下摆上丰盛的酒宴，或合家欢聚一堂，或邀请三五好友，一边吟诗作画，一边开怀畅饮，一醉方休。
+                           </p>
+                           <div class="ui stackable grid ">
+                               <div class="row">
+                                   <div class="eleven wide column">
+                                       <div class="ui mini horizontal link list">
+                                           <div class="item">
+                                               <img src="/images/bk.jpg" alt="" class="ui avatar image">
+                                               <div class="content"><a href="#" class="header ">sola433</a></div>
+                                           </div>
+                                           <div class="item">
+                                               <i class="calendar icon"></i>2021-3-24
+                                           </div>
+                                           <div class="item">
+                                               <i class="eye icon"></i>2398
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="five wide column right aligned">
+                                       <a href="#" class="ui basic blue label ">科普知识</a>
+                                   </div>
+                               </div>
+                               <div class="row">
+                                   <div class="column">
+                                       <a href="">
+                                           <div class="ui red horizontal large label m-margin-tb-tiny ">
+                                               文学
+                                           </div>
+                                       </a>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <div class=" five wide column">
+                           <a href="#" target="_blank">  <!--打开新页面-->
+                               <img src="/images/bk.jpg" alt="这是图片" class="ui rounded image"  >  <!--设置圆角的-->
+                           </a>
+                       </div>
+                   </div>
+               </div>
+               <div class="ui m-padded-lf m-padded-clear vertical segment">
+                   <div class="ui mobile reversed stackable grid">
+                       <div class=" eleven wide column">
+                           <h3 class="ui header">
+                               樱花节 （日本樱花节）
+                           </h3>
+                           <p class="m-text">   樱花节(Cherry Blossom Festival)，也称樱花祭，是日本每年的3月15日到4月15日的节日。樱花自开花至花残只有七天，因而也有称作樱花七日的说法。
+                               这是日本自南至北樱花开放的季节，人们在樱花树下摆上丰盛的酒宴，或合家欢聚一堂，或邀请三五好友，一边吟诗作画，一边开怀畅饮，一醉方休。
+                           </p>
+                           <div class="ui stackable grid ">
+                               <div class="row">
+                                   <div class="eleven wide column">
+                                       <div class="ui mini horizontal link list">
+                                           <div class="item">
+                                               <img src="/images/bk.jpg" alt="" class="ui avatar image">
+                                               <div class="content"><a href="#" class="header ">sola433</a></div>
+                                           </div>
+                                           <div class="item">
+                                               <i class="calendar icon"></i>2021-3-24
+                                           </div>
+                                           <div class="item">
+                                               <i class="eye icon"></i>2398
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="five wide column right aligned">
+                                       <a href="#" class="ui basic blue label ">科普知识</a>
+                                   </div>
+                               </div>
+                               <div class="row">
+                                   <div class="column">
+                                       <a href="">
+                                           <div class="ui red horizontal large label m-margin-tb-tiny ">
+                                               文学
+                                           </div>
+                                       </a>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <div class=" five wide column">
+                           <a href="#" target="_blank">  <!--打开新页面-->
+                               <img src="/images/bk.jpg" alt="这是图片" class="ui rounded image"  >  <!--设置圆角的-->
+                           </a>
+                       </div>
+                   </div>
+               </div>
+
+           </div>
+           <!--分页-->
+           <div class="ui bottom attached segment">
+               <div class="ui middle aligned two column grid">
+                   <div class="column">
+                       <button class="ui teal button basic">上一页</button>
+                   </div>
+                   <div class="right aligned column">
+                       <button class="ui teal button  basic">下一页</button>
+                   </div>
+               </div>
+           </div>
+       </div>
+    </div>
+
+<!--底部footer-->
+    <footer class="ui inverted vertical segment m-padded-tb-massive"> <!--vertical和attached效果差不多，把圆角弄直，它是垂直的意思-->
+       <div class="ui  container" align="center" >  <!--一个容器-->
+            <div class="ui inverted divided stackable grid">
+                <div class="three wide column">    <!--一排是十六份-->
+                    <div class="ui inverted link list">
+                        <div class="item m-position-left">
+                            <img th:src="@{/images/wechat.jpg}" class="ui rounded image" style="width: 100px">
+                        </div>
+                        </div>
+                </div>
+                <div class="three wide column">
+                    <h4 class="ui inverted header">Blog</h4>
+                    <div class="ui inverted link list">
+                        <a href="http://www.xvideos.com" class="item">www.xvideos.com</a>
+                        <a href="http://www.youjizz.com" class="item">www.youjizz.com</a>
+                        <a href="http://>www.pornhub.com" class="item">www.pornhub.com</a>
+                    </div>
+                </div>
+                <div class="three wide column">
+                    <h4 class="ui inverted header">联系我</h4>
+                    <div class="ui inverted link list">
+                        <a href="#" class="item">QQ:840891990</a>
+                        <a href="#" class="item">email:840891990@qq.com</a>
+                        <a href="#" class="item"></a>
+                    </div>
+                </div>
+                <div class="seven wide column">
+                    <h4 class="ui inverted header">最新博客</h4>
+                    <p class="m-opacity-mini">这是我的个人博客</p>
+                </div>
+            </div>
+           <div class="ui inverted section divider">
+           </div>
+           <p class="m-text-spaced m-text-thin m-opacity-mini">Copyright© 2021-2022 Wang Yuxiang Designed by Wang Yuxiang</p>
+       </div>
+
+    </footer>
+
+<script type="text/javascript">
+    $("#menuButton").click(function () {
+        $(".m-item").toggleClass("m-mobile-hide")  //如果有该属性就去除，没有就加上，得到切换的效果
+    })
+
+</script>
+</body>
+</html>
