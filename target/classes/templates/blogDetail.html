@@ -9,6 +9,9 @@
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
     <script src="/lib/prism/prism.js"></script><!--引入代码高亮显示的js文件-->
     <script src="/lib/tocbot/tocbot.min.js"></script><!--引入自动目录生成的js-->
+    <script src="/lib/qrcode/qrcode.js"></script><!--引入二维码生成的js-->
+    <script src="/lib/scrollto/jquery-scrollto.js"></script><!--引入平滑滚动效果的js-->
+    <script src="/lib/waypoints/jquery.waypoints.js"></script><!--引入滚动侦测的js-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <!--引入Semantic.js-->
     <link rel="stylesheet" href="/css/animate-3.4.0.css">  <!--引入动画效果的css-->
@@ -42,7 +45,7 @@
     </nav>
 
 <!--中间内容-->
-    <div class="m-padded-tb-big m-container-small  ">
+    <div id="waypoint" class="m-padded-tb-big m-container-small  ">
         <div class="ui container ">
             <div class="ui top attached segment ">
                 <div class="ui mini horizontal link list">
@@ -564,12 +567,12 @@ h5,h6{font-size:1em;}
         </div>
     </div>
 <!--小目录-->
-    <div  class="m-padded-middle" style="position: fixed;z-index: 1;right: 0;bottom: 0">
+    <div id="toolbar" class="m-padded-middle" style="position: fixed;z-index: 1;right: 0;bottom: 0;display: none">
         <div class="ui  vertical icon buttons">
             <input type="button" class="ui purple toc button" value="目录">
             <a href="#comment-container" class="ui  teal button">留言</a>
-            <button class="ui green icon button"><i class="weixin icon"></i></button>
-            <a href="#" class="ui icon yellow button"><i class="chevron up icon"></i></a>
+            <button class="ui wechat green icon button"><i class="weixin icon"></i></button>
+            <div id="toTop" class="ui icon yellow button"><i class="chevron up icon"></i></div>
         </div>
     </div>
 
@@ -578,7 +581,9 @@ h5,h6{font-size:1em;}
 
        </ol>
     </div>
-
+        <div id="qrcode" class="ui wechat-QR flowing popup transition hidden" style="width: 130px !important;">
+<!--             <img src="/images/wechat.jpg" alt="我的微信公众号" class="ui rounded image" style="width: 120px">-->
+        </div>
 
 <!--底部footer-->
     <footer class="ui inverted vertical segment m-padded-tb-massive"> <!--vertical和attached效果差不多，把圆角弄直，它是垂直的意思-->
@@ -636,15 +641,48 @@ h5,h6{font-size:1em;}
         hasInnerContainers: true,
     });
 
-    $("#payButton").popup({
+    $("#payButton").popup({      //赞赏弹出
         popup:$('.payQR.popup'),
         on:'click',
         position:'bottom center'
     })
-    $(".toc.button").popup({
+    $(".toc.button").popup({          //目录弹出
         popup:$('.toc-container.popup'),
         on:'click',
         position:'left center'
+    })
+
+    $(".wechat").popup({    //微信显示
+        popup:$('.wechat-QR'),
+        on:'click',     //默认值就是hover，鼠标触碰弹出信息
+        position:'left center'
+    })
+
+    var qrcode = new QRCode("qrcode", {      //文章二维码地址生成
+        text: "http://www.runoob.com",
+        width: 110,
+        height: 110,
+        colorDark : "#000000",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H
+    });
+
+    $('#toTop').click(function () {    //平滑滚动的事件设置
+       window.scrollTo({
+           top: 0,
+           behavior: "smooth"    //smooth(平滑滚动)
+       });
+    })
+
+    var waypoint = new Waypoint({     //设置滚动侦测事件
+        element: document.getElementById('waypoint'),
+        handler: function(direction) {
+           if(direction=='down'){
+            $("#toolbar").show(500);  //下移就显示工具目录
+           }else{
+               $("#toolbar").hide(500);   //向上移动隐藏目录，500是缓慢隐藏时间
+           }
+        }
     })
 </script>
 </body>
