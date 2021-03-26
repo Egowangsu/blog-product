@@ -1,6 +1,7 @@
 /*背景*/
 /*div{ border:1px solid transparent}*/
 /*------shadow------*/
+
 .m-shadow-small{
     -webkit-box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
@@ -154,3 +155,9 @@ body{
     }
 }
 
+.m-margin-left-large{
+    margin-left: 5em !important;
+}
+.m-margin-right-large{
+    margin-right: 5em !important;
+}

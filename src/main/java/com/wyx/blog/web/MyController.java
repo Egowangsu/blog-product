@@ -1,6 +1,10 @@
 package com.wyx.blog.web;
 
+import com.wyx.blog.exception.MyException;
+import com.wyx.blog.exception.NotFoundException;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -35,7 +39,7 @@ public class MyController {
 
     //关于我
     @RequestMapping("/about")
-    public String getAbout(){
+    public String getAbout()  {
         return "about";
     }
 }
