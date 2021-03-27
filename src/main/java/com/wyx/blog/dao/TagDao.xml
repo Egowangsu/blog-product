@@ -26,4 +26,7 @@ namespace ：必须有值，自定义的唯一字符串
     <select id="getTagByName" resultType="com.wyx.blog.domain.Tag">
         select * from  tbl_tag where name=#{name}
     </select>
+    <insert id="addTagAndBlogRelation">
+        insert into tbl_blog_tag_relation(blogId,tagId)values(#{blogId},#{res})
+    </insert>
 </mapper>

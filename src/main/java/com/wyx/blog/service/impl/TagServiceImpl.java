@@ -51,4 +51,9 @@ public class TagServiceImpl implements TagService {
     public Tag getTagByName(String name) {
         return tagDao.getTagByName(name);
     }
+
+    @Override
+    public void addTagAndBlogRelation(Integer blogId, String res) {
+        tagDao.addTagAndBlogRelation(blogId,res);
+    }
 }

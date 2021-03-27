@@ -1,26 +1,31 @@
 package com.wyx.blog.domain;
 
 import java.util.Date;
+import java.util.List;
+
 public class Blog {
 private Integer id;    //编号
 private String title;   //标题
 private String content;  //内容
 private String picture;  //图片地址
-private String flag;   //标签
+private boolean flag;   //标签
 private Integer views;   //浏览次数b
-private String appreciate;  // 是否开启赞赏
-private String shareStatement;  //是否开启分享
-private String commentabled;  //是否开启评论
-private String published;  //是发布还是保存草稿
-private String recommend;   //是否推荐
+private boolean appreciate;  // 是否开启赞赏
+private boolean shareStatement;  //是否开启分享
+private boolean commentabled;  //是否开启评论
+private boolean published;  //是发布还是保存草稿
+private boolean recommend;   //是否推荐
 private Date createTime;  //创建时间
 private Date updateTime;    //跟新时间
-private Integer typeId;   //多对一，多的那端加外键
-private Integer userId;
+private String typeId;   //多对一，多的那端加外键
+private String userId;
+private List<Tag> tag;
+private String tagIds;
     public Blog() {
     }
 
-    public Blog(Integer id, String title, String content, String picture, String flag, Integer views, String appreciate, String shareStatement, String commentabled, String published, String recommend, Date createTime, Date updateTime, Integer typeId, Integer userId) {
+
+    public Blog(Integer id, String title, String content, String picture, boolean flag, Integer views, boolean appreciate, boolean shareStatement, boolean commentabled, boolean published, boolean recommend, Date createTime, Date updateTime, String typeId, String userId, List<Tag> tag) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -36,21 +41,38 @@ private Integer userId;
         this.updateTime = updateTime;
         this.typeId = typeId;
         this.userId = userId;
+        this.tag = tag;
     }
 
-    public Integer getTypeId() {
+    public String getTagIds() {
+        return tagIds;
+    }
+
+    public void setTagIds(String tagIds) {
+        this.tagIds = tagIds;
+    }
+
+    public List<Tag> getTag() {
+        return tag;
+    }
+
+    public void setTag(List<Tag> tag) {
+        this.tag = tag;
+    }
+
+    public String getTypeId() {
         return typeId;
     }
 
-    public void setTypeId(Integer typeId) {
+    public void setTypeId(String typeId) {
         this.typeId = typeId;
     }
 
-    public Integer getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -86,13 +108,6 @@ private Integer userId;
         this.picture = picture;
     }
 
-    public String getFlag() {
-        return flag;
-    }
-
-    public void setFlag(String flag) {
-        this.flag = flag;
-    }
 
     public Integer getViews() {
         return views;
@@ -102,43 +117,51 @@ private Integer userId;
         this.views = views;
     }
 
-    public String getAppreciate() {
+    public boolean isFlag() {
+        return flag;
+    }
+
+    public void setFlag(boolean flag) {
+        this.flag = flag;
+    }
+
+    public boolean isAppreciate() {
         return appreciate;
     }
 
-    public void setAppreciate(String appreciate) {
+    public void setAppreciate(boolean appreciate) {
         this.appreciate = appreciate;
     }
 
-    public String getShareStatement() {
+    public boolean isShareStatement() {
         return shareStatement;
     }
 
-    public void setShareStatement(String shareStatement) {
+    public void setShareStatement(boolean shareStatement) {
         this.shareStatement = shareStatement;
     }
 
-    public String getCommentabled() {
+    public boolean isCommentabled() {
         return commentabled;
     }
 
-    public void setCommentabled(String commentabled) {
+    public void setCommentabled(boolean commentabled) {
         this.commentabled = commentabled;
     }
 
-    public String getPublished() {
+    public boolean isPublished() {
         return published;
     }
 
-    public void setPublished(String published) {
+    public void setPublished(boolean published) {
         this.published = published;
     }
 
-    public String getRecommend() {
+    public boolean isRecommend() {
         return recommend;
     }
 
-    public void setRecommend(String recommend) {
+    public void setRecommend(boolean recommend) {
         this.recommend = recommend;
     }
 

@@ -6,6 +6,7 @@ import com.wyx.blog.domain.Blog;
 import com.wyx.blog.domain.Type;
 import com.wyx.blog.domain.User;
 import com.wyx.blog.service.BlogService;
+import com.wyx.blog.service.TagService;
 import com.wyx.blog.service.TypeService;
 import com.wyx.blog.service.UserService;
 import com.wyx.blog.vo.BlogQuery;
@@ -18,18 +19,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminController {
-    @Autowired
-    private UserService userService;
+public class BlogController {
     @Autowired
     private BlogService blogService;
     @Autowired
     private TypeService typeService;
+    @Autowired
+    private TagService tagService;
      //管理博客
     @RequestMapping("/blogs")
     public String blogs(@RequestParam(value = "pageNo",defaultValue ="1")Integer pn, Model model, BlogQuery blog){
@@ -46,7 +49,7 @@ public class AdminController {
         return "admin/blogs";
     }
 
-    @PostMapping("/blogs/search")
+    @RequestMapping("/blogs/search")
     public String search(@RequestParam(value = "pageNo",defaultValue ="1")Integer pn, Model model, BlogQuery blog){
         PageHelper.startPage(pn,4);
         List<Blog> blogs=blogService.listPage(blog);
@@ -56,46 +59,38 @@ public class AdminController {
     }
 
     //发布博客
-    @RequestMapping("/input")
-    public String input(){
+    @RequestMapping("/blogs/input")
+    public String input(Model model){
+        model.addAttribute("types",typeService.listPage());
+        model.addAttribute("tags",tagService.listPage());
+        model.addAttribute("blog",new Blog());
+
         return "admin/blogs-input";
     }
 
-    @GetMapping
-    public String loginPage(){
-        return "admin/login";
+        //新增时候的提交博客
+    @PostMapping("/blogs")
+    public String post(Blog blog, HttpSession session, RedirectAttributes attributes, HttpServletRequest request){
+        //检测博客数量
+        Integer count=blogService.getCount();
+        Integer blogId=count+1;
+        blog.setId(blogId);
+        blog.setUserId("1");   //博客所属者id
+        blog.setTypeId(request.getParameter("type.id"));  //博客的分类id
+        String str=request.getParameter("tagIds");
+        List<String> list = Arrays.asList(str.split(","));
+        System.out.println("============================"+blog);
+        for(String res:list){
+             //将博客和标签关系存入
+            tagService.addTagAndBlogRelation(blogId,res);
+        }
+        int count2=blogService.saveBlog(blog);
+        if(count2!=1){
+            attributes.addFlashAttribute("message","博客添加失败");
+        }else{
+            attributes.addFlashAttribute("message","博客添加成功");
+        }
+        return "redirect:/admin/blogs";
     }
-    //登陆验证
-    @PostMapping("/login")
-    public String login(@RequestParam("username") String name,
-                        @RequestParam("password") String password,
-                        HttpSession session,
-                        RedirectAttributes attributes){
-            User user=userService.checkUser(name, password);
-            if(user!=null){
-                //登陆成功
-                user.setPassword(null);  //不把密码放到session域中，不安全
-                session.setAttribute("user", user);
-                return "admin/welcome";   //去到欢迎界面
-            }else{
-                //验证失败
-                attributes.addFlashAttribute("message","用户名密码错误！");
-                return "redirect:/admin";
-            }
-    }
-
-    //注销登陆
-    @GetMapping("/logout")
-    public String logout(HttpSession session){
-        session.removeAttribute("user");
-        System.out.println("jinlaile");
-        return "redirect:/admin";
-    }
-
-    @RequestMapping("/typeInput")
-        public String typeInput(){
-        return "types-input";
-    }
-
 
 }

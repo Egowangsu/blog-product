@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 @Service
 public class BlogServiceImpl implements BlogService {
@@ -26,7 +27,11 @@ public class BlogServiceImpl implements BlogService {
     }
     @Transactional
     @Override
-    public int saveBlog(Blog blog) {
+    public Integer saveBlog(Blog blog) {
+        blog.setCreateTime(new Date());
+        blog.setUpdateTime(new Date());
+        blog.setViews(0);
+        System.out.println(blog);
         return blogDao.saveBlog(blog);
     }
     @Transactional
@@ -41,5 +46,10 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public void deleteBlog(Integer id) {
             blogDao.deleteBlog(id);
+    }
+
+    @Override
+    public Integer getCount() {
+        return blogDao.getCount();
     }
 }

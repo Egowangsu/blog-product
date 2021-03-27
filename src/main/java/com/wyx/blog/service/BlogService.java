@@ -10,9 +10,11 @@ public interface BlogService {
 
     List<Blog> listPage(BlogQuery blog);
 
-    int saveBlog(Blog blog);
+    Integer saveBlog(Blog blog);
 
     int updateBlog(Integer id,Blog blog);
 
     void deleteBlog(Integer id);
+
+    Integer getCount();
 }

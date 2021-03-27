@@ -10,10 +10,10 @@ namespace ：必须有值，自定义的唯一字符串
 
     <insert id="saveBlog" >
            insert into tbl_blog(
+           id,
             title,
             content,
             picture,
-            flag,
             views,
             appreciate,
             shareStatement,
@@ -25,14 +25,15 @@ namespace ：必须有值，自定义的唯一字符串
             typeId,
             userId
            ) values(
+            id=#{blog.id},
             title=#{blog.title},
             content=#{blog.content},
             picture=#{blog.picture},
-            flag=#{blog.flag},
             views=#{blog.views},
             appreciate=#{blog.appreciate},
             shareStatement=#{blog.shareStatement},
             commentabled=#{blog.commentabled},
+            published=#{blog.published},
             recommend=#{blog.recommend},
             createTime=#{blog.createTime},
             updateTime=#{blog.updateTime},
@@ -63,10 +64,10 @@ namespace ：必须有值，自定义的唯一字符串
         delete from  tbl_blog where id=#{id}
     </delete>
     <select id="selectAllBlogByCondition" resultType="com.wyx.blog.domain.Blog">
-        select * from  tbl_blog
+        select b.id,b.title, t.name as typeId,b.recommend,b.updateTime from tbl_blog b join tbl_type t on b.typeId=t.id
         <where>
         <if test="blog.title!=null and blog.title!='' ">
-            and like '%' #{blog.title} '%'
+            and title like '%' #{blog.title} '%'
         </if>
         <if test="blog.typeId!= null and blog.typeId!= '' ">
             and typeId=#{blog.typeId}
@@ -80,4 +81,8 @@ namespace ：必须有值，自定义的唯一字符串
     <select id="getBlogByName" resultType="com.wyx.blog.domain.Blog">
         select * from  tbl_blog where name=#{name}
     </select>
+    <select id="getCount" resultType="int">
+        select count(*)  from tbl_blog
+    </select>
+
 </mapper>

@@ -10,6 +10,7 @@
     <!--引入Semantic.js-->
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
     <link rel="stylesheet" href="/css/me.css"> <!--引入的css样式,里面可以定义背景-->
+    <link rel="stylesheet" href="/css/animate-3.4.0.css">
 </head>
 <body>
 <!--导航-->
@@ -51,7 +52,7 @@
 <!--中间内容-->
     <div class="m-padded-tb-big m-container-small ">
        <div class="ui container">
-           <form action="#"  method="post" class="ui  secondary segment form">
+           <div class="ui  secondary segment form">
                <input type="hidden" name="pageNo">
                <div class=" inline fields">
                    <div class="field">
@@ -98,7 +99,7 @@
                        <td th:text="${iterStat.count}">1</td>
                        <td th:text="${blog.title}">如何学习java</td>
                        <td th:text="${blog.typeId}">学习</td>
-                       <td th:text="${blog.recommend}=='y' ?'是':'否'">是</td>
+                       <td th:text="${blog.recommend} ?'是':'否'">是</td>
                        <td th:text="${blog.updateTime}">2021-3-24 11:10</td>
                        <td>
                            <a  th:href="@{/admin/blogs/{id}/input(id=${blog.id})}" class="ui  icon button secondary left floated " >编辑</a>
@@ -106,14 +107,18 @@
                        </td>
                    </tr>
                    </tbody>
+                   <div  class="ui  message animated fadeOut" th:unless="${#strings.isEmpty(message)}" style="animation-delay: 2s">
+                       <div class="header">提示：</div>
+                       <center><h3  th:text="${message}" >恭喜操作成功</h3></center>
+                   </div>
                    <tfoot>
                    <tr>
                        <th colspan="6">
                            <div class="ui mini right floated pagination menu" th:if="${pageInfo.pages>1}">
-                               <a onclick="pageNo(this)" th:attr="data-page=${pageInfo.pageNum-1}" th:unless="${pageInfo.isFirstPage}" class="item">上一页</a>
-                               <a onclick="pageNo(this)" th:attr="data-page=${pageInfo.pageNum+1}" th:unless="${pageInfo.isLastPage}" class="item">下一页</a>
+                               <a onclick="pageNo(this)" th:attr="data-pageNo=${pageInfo.pageNum-1}" th:unless="${pageInfo.isFirstPage}" class="item">上一页</a>
+                               <a onclick="pageNo(this)" th:attr="data-pageNo=${pageInfo.pageNum+1}" th:unless="${pageInfo.isLastPage}" class="item">下一页</a>
                            </div>
-                           <a href="#" class="ui  button icon blue left floated">新增</a>
+                           <a href="#" th:href="@{/admin/blogs/input}" class="ui  button icon blue left floated">新增</a>
                        </th>
                    </tr>
                    </tfoot>
@@ -169,21 +174,22 @@
     $('.ui.dropdown').dropdown()  //默认点击弹出下拉框
 
     function pageNo(obj) {
-        $("[name='pageNo']").val($(obj).data("page"));
-        loaddate();
+        $("[name='pageNo']").val($(obj).data("pageNo"));
+        loaddata();
     }
     $("#search-btn").click(function () {
-        loaddate();
+        loaddata();
     })
-function loaddate() {
-$("#table-container").load(/*[[@{admin/blogs/search}]]*/"/admin/blogs/search",{
-    titel:$("[name='title']").val(),
-    typeId:$("[name='typeId']").val(),
-    recommend:$("[name='recommend']").prop("checked"),
-    pageNo:$("[name='pageNo']").val()
 
-});
-}
+    function loaddata() {
+        $("#table-container").load(/*[[@{/admin/blogs/search}]]*/"/admin/blogs/search",{
+            title : $("[name='title']").val(),
+            typeId : $("[name='typeId']").val(),
+            recommend : $("[name='recommend']").prop('checked'),
+            draft : $("[name='draft']").prop('checked'),
+            pageNo : $("[name='pageNo']").val()
+        });
+    }
 </script>
 </body>
 </html>

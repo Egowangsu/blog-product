@@ -11,9 +11,11 @@ public interface BlogDao {
 
     List<Blog> selectAllBlogByCondition(@Param("blog") BlogQuery blog);
 
-    int saveBlog(@Param("blog") Blog blog);
+    Integer saveBlog(@Param("blog") Blog blog);
 
     int updateBlog(Integer id, @Param("blog") Blog blog);
 
     void deleteBlog(Integer id);
+
+    Integer getCount();
 }
