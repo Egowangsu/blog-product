@@ -1,6 +1,7 @@
 package com.wyx.blog.dao;
 
 import com.wyx.blog.domain.Type;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -9,9 +10,11 @@ public interface TypeDao {
 
     Type getType(Integer id);
 
-    int updateType(Integer id, Type type);
+    int updateType(@Param("name") String name,@Param("id") Integer id);
 
     void deleteType(Integer id);
 
     List<Type> selectAllType();
+
+    Type getTypeByName(String name);
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+namespace ：必须有值，自定义的唯一字符串
+推荐使用： dao 接口的全限定名称
+-->
+<mapper namespace="com.wyx.blog.dao.TagDao">
+
+    <insert id="saveTag" >
+           insert into tbl_tag(name) values(#{name})
+    </insert>
+    <select id="getTag" resultType="com.wyx.blog.domain.Tag">
+        select *  from  tbl_tag where id=#{id}
+    </select>
+    <update id="updateTag">
+            update  tbl_tag set name=#{name} where id=#{id}
+    </update>
+    <delete id="deleteTag">
+        delete from  tbl_tag where id=#{id}
+    </delete>
+    <select id="selectAllTag" resultType="com.wyx.blog.domain.Tag">
+        select * from  tbl_tag order by id desc
+    </select>
+    <select id="getTagByName" resultType="com.wyx.blog.domain.Tag">
+        select * from  tbl_tag where name=#{name}
+    </select>
+</mapper>

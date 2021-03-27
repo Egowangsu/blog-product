@@ -3,15 +3,13 @@ package com.wyx.blog.web;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wyx.blog.domain.Type;
+import com.wyx.blog.exception.TypeNameEmptyException;
 import com.wyx.blog.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,18 +39,68 @@ public class TypeController {
     public String input(){
         return"admin/types-input";
     }
+    @GetMapping("/types/edit")   //点击分类跳转到分类修改页面
+    public String edit(){
+        return"admin/types-edit";
+    }
 
     @PostMapping("/types")
     public String post(Type type, RedirectAttributes attributes){
+        if("".equals(type.getName())||type.getName()==null){
+            throw new TypeNameEmptyException("分类为空,请正确执行操作");
+        }
+        Type t=typeService.getTypeByName(type.getName());
+
+        if(t!=null){
+            attributes.addFlashAttribute("message","分类已经存在");
+            return "redirect:/admin/types/input";
+        }
+
         int count=typeService.saveType(type);
         if(count!=1){
         attributes.addFlashAttribute("message","添加失败");
-            System.out.println("==================="+attributes.getFlashAttributes());
         }else{
             attributes.addFlashAttribute("message","添加成功");
-            System.out.println("==================="+attributes.getFlashAttributes());
         }
             return "redirect:/admin/types";
 
     }
+    //修改标签
+        @GetMapping("/types/{id}/input")
+    public  String editType(@PathVariable Integer id,Model model){
+        model.addAttribute("type",typeService.getType(id));  //存进去
+            return "admin/types-edit";
+        }
+
+
+    @PostMapping("/types/{id}")    //修改分类
+    public String edit(Type type, RedirectAttributes attributes,@PathVariable Integer id){
+        if("".equals(type.getName())||type.getName()==null){
+            throw new TypeNameEmptyException("分类为空,请正确执行操作");
+        }
+        Type t=typeService.getTypeByName(type.getName());
+
+        if(t!=null){
+            attributes.addFlashAttribute("message","分类已经存在");
+            return "redirect:/admin/types";
+        }
+
+        int count=typeService.updateType(type,id);
+        if(count!=1){
+            attributes.addFlashAttribute("message","修改失败");
+        }else{
+            attributes.addFlashAttribute("message","修改成功");
+        }
+        return "redirect:/admin/types";
+
+    }
+
+    //删除标签
+    @GetMapping("/types/{id}/delete")
+    public String delete(@PathVariable Integer id,RedirectAttributes attributes){
+        typeService.deleteType(id);
+        attributes.addFlashAttribute("message","删除成功");
+        return "redirect:/admin/types";
+    }
+
 }

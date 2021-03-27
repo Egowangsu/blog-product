@@ -17,14 +17,14 @@
         <div class="ui container"> <!--位置偏移-->
             <div class="ui inverted secondary stackable menu" >
                 <h2 class="ui teal header item">Blog</h2>
-                <a th:href="@{/admin/management}" class="m-item active item m-mobile-hide"><i class="mini home icon m-style" ></i>博客</a>
+                <a th:href="@{/admin/blogs}" class="m-item active item m-mobile-hide"><i class="mini home icon m-style" ></i>博客</a>
                 <a th:href="@{/admin/types}" class="m-item item m-mobile-hide"><i class="mini idea icon m-style"></i>分类</a>
                 <a th:href="@{/admin/tags}" class="m-item item m-mobile-hide"><i class="mini tags icon m-style"></i>标签</a>
                 <div class="right menu m-item">
                     <div class="ui dropdown item m-mobile-hide m-item">
                         <div class="text">
-                            <img class="ui avatar image" src="/images/head.jpg">
-                            王宇翔
+                            <img class="ui avatar image" th:src="${session.user.avatar}">
+                            <span th:text="${session.user.nickName}"></span>
                         </div>
                         <i class="dropdown icon"></i>
                             <div class="menu">
@@ -51,19 +51,20 @@
 <!--中间内容-->
     <div class="m-padded-tb-big m-container-small ">
        <div class="ui container">
-           <form action="#"  method="post" class="ui segment form">
+           <form action="#"  method="post" class="ui  secondary segment form">
+               <input type="hidden" name="pageNo">
                <div class=" inline fields">
                    <div class="field">
                    <input type="text" name="title" placeholder="标题">
                    </div>
                    <div class="field">
                       <div class="ui selection dropdown">
-                          <input type="hidden" name="type">
+                          <input type="hidden" name="typeId">
                           <i class="icon dropdown"></i>
                           <div class="default text">分类</div>
                           <div class="menu">
-                              <div class="item" data-value="1">阅读</div>
-                              <div class="item" data-value="2">电影</div>
+                              <div th:each="type:${types}" class="item" data-value="1" th:data-value="${type.id}" th:text="${type.name}">阅读</div>
+<!--                              <div class="item" data-value="2">电影</div>-->
                           </div>
                       </div>
                    </div>
@@ -74,48 +75,51 @@
                        </div>
                    </div>
                    <div class="field">
-                       <button class="ui secondary button">
+                       <button type="button" id="search-btn" class="ui secondary button">
                            <i class="search icon"></i>搜索
                        </button>
                    </div>
                </div>
            </form>
-           <table class="ui celled  table">
-               <thead>
-               <tr>
-                   <th>编号</th>
-                   <th>标题</th>
-                   <th>类型</th>
-                   <th>推荐</th>
-                   <th>更新时间</th>
-                   <th>操作</th>
-               </tr>
-               </thead>
-               <tbody>
-               <tr>
-                   <td>1</td>
-                   <td>如何学习java</td>
-                   <td>学习</td>
-                   <td>是</td>
-                   <td>2021-3-24 11:10</td>
-                   <td>
-                       <a href="#" class="ui  icon button secondary">编辑</a>
-                       <a href="#" class="ui middle icon button red">删除</a>
-                   </td>
-               </tr>
-               </tbody>
-               <tfoot>
-               <tr>
-                   <th colspan="6">
-                       <div class="ui mini right floated pagination menu">
-                           <a href="#" class="  item">上一页</a>
-                           <a href="#" class="  item">下一页</a>
-                       </div>
-                       <a href="#" class="ui  button icon blue left floated">新增</a>
-                   </th>
-               </tr>
-               </tfoot>
-           </table>
+           <div id="table-container">
+               <table class="ui compact  table" th:fragment="blogList">
+                   <thead>
+                   <tr>
+                       <th>编号</th>
+                       <th>标题</th>
+                       <th>类型</th>
+                       <th>推荐</th>
+                       <th>更新时间</th>
+                       <th>操作</th>
+                   </tr>
+                   </thead>
+                   <tbody>
+                   <tr th:each="blog,iterStat :${pageInfo.list}">
+                       <td th:text="${iterStat.count}">1</td>
+                       <td th:text="${blog.title}">如何学习java</td>
+                       <td th:text="${blog.typeId}">学习</td>
+                       <td th:text="${blog.recommend}=='y' ?'是':'否'">是</td>
+                       <td th:text="${blog.updateTime}">2021-3-24 11:10</td>
+                       <td>
+                           <a  th:href="@{/admin/blogs/{id}/input(id=${blog.id})}" class="ui  icon button secondary left floated " >编辑</a>
+                           <a  th:href="@{/admin/blogs/{id}/delete(id=${blog.id})}" class="ui middle icon button red left flaoted  " >删除</a>
+                       </td>
+                   </tr>
+                   </tbody>
+                   <tfoot>
+                   <tr>
+                       <th colspan="6">
+                           <div class="ui mini right floated pagination menu" th:if="${pageInfo.pages>1}">
+                               <a onclick="pageNo(this)" th:attr="data-page=${pageInfo.pageNum-1}" th:unless="${pageInfo.isFirstPage}" class="item">上一页</a>
+                               <a onclick="pageNo(this)" th:attr="data-page=${pageInfo.pageNum+1}" th:unless="${pageInfo.isLastPage}" class="item">下一页</a>
+                           </div>
+                           <a href="#" class="ui  button icon blue left floated">新增</a>
+                       </th>
+                   </tr>
+                   </tfoot>
+               </table>
+           </div>
+
        </div>
     </div>
 
@@ -164,8 +168,22 @@
     })
     $('.ui.dropdown').dropdown()  //默认点击弹出下拉框
 
+    function pageNo(obj) {
+        $("[name='pageNo']").val($(obj).data("page"));
+        loaddate();
+    }
+    $("#search-btn").click(function () {
+        loaddate();
+    })
+function loaddate() {
+$("#table-container").load(/*[[@{admin/blogs/search}]]*/"/admin/blogs/search",{
+    titel:$("[name='title']").val(),
+    typeId:$("[name='typeId']").val(),
+    recommend:$("[name='recommend']").prop("checked"),
+    pageNo:$("[name='pageNo']").val()
 
-
+});
+}
 </script>
 </body>
 </html>

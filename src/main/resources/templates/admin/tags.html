@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCtag html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -20,8 +20,8 @@
             <div class="ui inverted secondary stackable menu" >
                 <h2 class="ui teal header item">Blog</h2>
                 <a th:href="@{/admin/blogs}" class="m-item  item m-mobile-hide"><i class="mini home icon m-style" ></i>博客</a>
-                <a th:href="@{/admin/types}" class="m-item  active item m-mobile-hide"><i class="mini idea icon m-style"></i>分类</a>
-                <a th:href="@{/admin/tags}" class="m-item item m-mobile-hide"><i class="mini tags icon m-style"></i>标签</a>
+                <a th:href="@{/admin/types}" class="m-item   item m-mobile-hide"><i class="mini idea icon m-style"></i>分类</a>
+                <a th:href="@{/admin/tags}" class="m-item active item m-mobile-hide"><i class="mini tags icon m-style"></i>标签</a>
                 <div class="right menu m-item">
                     <div class="ui dropdown item m-mobile-hide m-item">
                         <div class="text">
@@ -44,8 +44,8 @@
     <div class="ui attached pointing menu inverted ">
         <div class="ui container ">
             <div class="right menu">
-                <a th:href="@{/admin/types/input}" class="item  pointing">新增</a>
-                <a th:href="@{/admin/types}" class="item active ">列表</a>
+                <a th:href="@{/admin/tags/input}" class="item  pointing">新增</a>
+                <a th:href="@{/admin/tags}" class="item active ">列表</a>
             </div>
         </div>
     </div>
@@ -66,12 +66,12 @@
                </tr>
                </thead>
                <tbody>
-               <tr th:each="type,iterStat:${pageInfo.list}">
+               <tr th:each="tag,iterStat:${pageInfo.list}">
                    <td class="center aligned" th:text="${iterStat.count}">1</td>
-                   <td class="center aligned" th:text="${type.name}">如何学习java</td>
+                   <td class="center aligned" th:text="${tag.name}">如何学习java</td>
                    <td>
-                       <a href="#" th:href="@{/admin/types/{id}/input(id=${type.id})}" class="ui  icon button secondary left floated " >编辑</a>
-                       <a href="#" th:href="@{/admin/types/{id}/delete(id=${type.id})}" class="ui middle icon button red left flaoted  " >删除</a>
+                       <a href="#" th:href="@{/admin/tags/{id}/input(id=${tag.id})}" class="ui  icon button secondary left floated " >编辑</a>
+                       <a href="#" th:href="@{/admin/tags/{id}/delete(id=${tag.id})}" class="ui middle icon button red left flaoted  " >删除</a>
                    </td>
                </tr>
                </tbody>
@@ -79,11 +79,11 @@
                <tr>
                    <th colspan="6" th:inline="text">
                        <div class="ui mini left floated pagination menu" th:if="${pageInfo.pages>1}">
-                           <a th:href="@{/admin/types(pageNo=${pageInfo.pageNum-1})}" th:unless="${pageInfo.isFirstPage}" class="item">上一页</a>
-                           <a th:href="@{/admin/types(pageNo=${pageInfo.pageNum+1})}" th:unless="${pageInfo.isLastPage}" class="item">下一页</a>
+                           <a th:href="@{/admin/tags(pageNo=${pageInfo.pageNum-1})}" th:unless="${pageInfo.isFirstPage}" class="item">上一页</a>
+                           <a th:href="@{/admin/tags(pageNo=${pageInfo.pageNum+1})}" th:unless="${pageInfo.isLastPage}" class="item">下一页</a>
                        </div>
                        <a  class="ui  button icon blue right floated">now:[[${pageInfo.pageNum}]]/total:[[${pageInfo.pages}]]</a>
-                       <a th:href="@{/admin/types/input}" class="ui  button icon blue right floated">新增</a>
+                       <a th:href="@{/admin/tags/input}" class="ui  button icon blue right floated">新增</a>
 
                    </th>
                </tr>
@@ -141,7 +141,7 @@
 
     </footer>
 
-<script type="text/javascript">
+<script tag="text/javascript">
     $("#menuButton").click(function () {
         $(".m-item").toggleClass("m-mobile-hide")  //如果有该属性就去除，没有就加上，得到切换的效果
     })

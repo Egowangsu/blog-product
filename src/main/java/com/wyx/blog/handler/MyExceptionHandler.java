@@ -1,5 +1,6 @@
 package com.wyx.blog.handler;
 
+import com.wyx.blog.exception.TypeNameEmptyException;
 import com.wyx.blog.exception.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -19,6 +20,14 @@ public class MyExceptionHandler {
         mv.addObject("url", request.getRequestURL());  //获取出错的url
         mv.addObject("ex",ex);
         mv.setViewName("error/error");
+        return mv;
+    }
+    @ExceptionHandler(value = TypeNameEmptyException.class)
+    public ModelAndView nameEmpty(HttpServletRequest request,Exception ex){
+        log.error("分类为空,请正确执行操作");  //打印到日志
+        ModelAndView mv=new ModelAndView();
+        mv.addObject("ex",ex.getMessage());
+        mv.setViewName("error/nameEmpty");
         return mv;
     }
 }

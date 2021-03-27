@@ -8,19 +8,19 @@ private String content;  //内容
 private String picture;  //图片地址
 private String flag;   //标签
 private Integer views;   //浏览次数b
-private boolean appreciate;  // 是否开启赞赏
-private boolean shareStatement;  //是否开启分享
-private boolean commentabled;  //是否开启评论
-private boolean published;  //是发布还是保存草稿
-private boolean recommend;   //是否推荐
+private String appreciate;  // 是否开启赞赏
+private String shareStatement;  //是否开启分享
+private String commentabled;  //是否开启评论
+private String published;  //是发布还是保存草稿
+private String recommend;   //是否推荐
 private Date createTime;  //创建时间
 private Date updateTime;    //跟新时间
-private Type type;   //多对一，多的那端加外键
-private User user;
+private Integer typeId;   //多对一，多的那端加外键
+private Integer userId;
     public Blog() {
     }
 
-    public Blog(Integer id, String title, String content, String picture, String flag, Integer views, boolean appreciate, boolean shareStatement, boolean commentabled, boolean published, boolean recommend, Date createTime, Date updateTime, Type type, User user) {
+    public Blog(Integer id, String title, String content, String picture, String flag, Integer views, String appreciate, String shareStatement, String commentabled, String published, String recommend, Date createTime, Date updateTime, Integer typeId, Integer userId) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -34,24 +34,24 @@ private User user;
         this.recommend = recommend;
         this.createTime = createTime;
         this.updateTime = updateTime;
-        this.type = type;
-        this.user = user;
+        this.typeId = typeId;
+        this.userId = userId;
     }
 
-    public Type getType() {
-        return type;
+    public Integer getTypeId() {
+        return typeId;
     }
 
-    public void setType(Type type) {
-        this.type = type;
+    public void setTypeId(Integer typeId) {
+        this.typeId = typeId;
     }
 
-    public User getUser() {
-        return user;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public Integer getId() {
@@ -102,43 +102,43 @@ private User user;
         this.views = views;
     }
 
-    public boolean isAppreciate() {
+    public String getAppreciate() {
         return appreciate;
     }
 
-    public void setAppreciate(boolean appreciate) {
+    public void setAppreciate(String appreciate) {
         this.appreciate = appreciate;
     }
 
-    public boolean isShareStatement() {
+    public String getShareStatement() {
         return shareStatement;
     }
 
-    public void setShareStatement(boolean shareStatement) {
+    public void setShareStatement(String shareStatement) {
         this.shareStatement = shareStatement;
     }
 
-    public boolean isCommentabled() {
+    public String getCommentabled() {
         return commentabled;
     }
 
-    public void setCommentabled(boolean commentabled) {
+    public void setCommentabled(String commentabled) {
         this.commentabled = commentabled;
     }
 
-    public boolean isPublished() {
+    public String getPublished() {
         return published;
     }
 
-    public void setPublished(boolean published) {
+    public void setPublished(String published) {
         this.published = published;
     }
 
-    public boolean isRecommend() {
+    public String getRecommend() {
         return recommend;
     }
 
-    public void setRecommend(boolean recommend) {
+    public void setRecommend(String recommend) {
         this.recommend = recommend;
     }
 
@@ -174,8 +174,8 @@ private User user;
                 ", recommend=" + recommend +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
-                ", type=" + type +
-                ", user=" + user +
+                ", typeId=" + typeId +
+                ", userId=" + userId +
                 '}';
     }
 }

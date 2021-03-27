@@ -4,7 +4,6 @@ import com.wyx.blog.dao.TypeDao;
 import com.wyx.blog.domain.Type;
 import com.wyx.blog.exception.NotFoundException;
 import com.wyx.blog.service.TypeService;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,7 +11,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class typeServiceImpl implements TypeService {
+public class TypeServiceImpl implements TypeService {
     @Resource
     private TypeDao typeDao;
 
@@ -33,17 +32,23 @@ public class typeServiceImpl implements TypeService {
     }
     @Transactional
     @Override
-    public int updateType(Integer id, Type type) {
+    public int updateType( Type type,Integer id) {
 
         Type t= typeDao.getType(id);  //更新前先查询
         if(t==null){
-            throw new NotFoundException("更新失败，没有找到该标签");
+            throw new NotFoundException("更新失败，没有找到该分类");
         }
-        return typeDao.updateType(id, type);
+        return typeDao.updateType(type.getName(), id);
     }
     @Transactional
     @Override
-    public void deleteType(Integer id) {
+    public int deleteType(Integer id) {
         typeDao.deleteType(id);
+        return 0;
+    }
+
+    @Override
+    public Type getTypeByName(String name) {
+        return typeDao.getTypeByName(name);
     }
 }

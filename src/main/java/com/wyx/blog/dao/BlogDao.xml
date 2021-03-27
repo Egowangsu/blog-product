@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+namespace ：必须有值，自定义的唯一字符串
+推荐使用： dao 接口的全限定名称
+-->
+<mapper namespace="com.wyx.blog.dao.BlogDao">
+
+    <insert id="saveBlog" >
+           insert into tbl_blog(
+            title,
+            content,
+            picture,
+            flag,
+            views,
+            appreciate,
+            shareStatement,
+            commentabled,
+            published,
+            recommend,
+            createTime,
+            updateTime,
+            typeId,
+            userId
+           ) values(
+            title=#{blog.title},
+            content=#{blog.content},
+            picture=#{blog.picture},
+            flag=#{blog.flag},
+            views=#{blog.views},
+            appreciate=#{blog.appreciate},
+            shareStatement=#{blog.shareStatement},
+            commentabled=#{blog.commentabled},
+            recommend=#{blog.recommend},
+            createTime=#{blog.createTime},
+            updateTime=#{blog.updateTime},
+            typeId=#{blog.typeId},
+            userId=#{blog.userId}
+           )
+    </insert>
+    <select id="getBlog" resultType="com.wyx.blog.domain.Blog">
+        select *  from  tbl_blog where id=#{id}
+    </select>
+    <update id="updateBlog">
+        update tbl_blog set
+                    title=#{blog.title},
+                    content=#{blog.content},
+                    picture=#{blog.picture},
+                    flag=#{blog.flag},
+                    views=#{blog.views},
+                    appreciate=#{blog.appreciate},
+                    shareStatement=#{blog.shareStatement},
+                    commentabled=#{blog.commentabled},
+                    recommend=#{blog.recommend},
+                    createTime=#{blog.createTime},
+                    updateTime=#{blog.updateTime},
+                    typeId=#{blog.typeId},
+                    userId=#{blog.userId}
+    </update>
+    <delete id="deleteBlog">
+        delete from  tbl_blog where id=#{id}
+    </delete>
+    <select id="selectAllBlogByCondition" resultType="com.wyx.blog.domain.Blog">
+        select * from  tbl_blog
+        <where>
+        <if test="blog.title!=null and blog.title!='' ">
+            and like '%' #{blog.title} '%'
+        </if>
+        <if test="blog.typeId!= null and blog.typeId!= '' ">
+            and typeId=#{blog.typeId}
+        </if>
+         <if test="blog.recommend!= null and blog.recommend!= '' ">
+            and recommend='y'
+        </if>
+        </where>
+        group by updateTime
+    </select>
+    <select id="getBlogByName" resultType="com.wyx.blog.domain.Blog">
+        select * from  tbl_blog where name=#{name}
+    </select>
+</mapper>

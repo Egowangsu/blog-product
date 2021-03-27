@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0"><!--移动端的界面比例设计-->
-    <title>后台管理</title>
+    <title>分类新增</title>
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.js"></script>
     <!--引入Semantic的css样式-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <!--引入markdown编辑器的css-->
+    <link rel="stylesheet" href="/lib/editormd/css/editormd.min.css">
     <!--引入Semantic.js-->
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
     <link rel="stylesheet" href="/css/me.css"> <!--引入的css样式,里面可以定义背景-->
+    <link rel="stylesheet" href="/css/animate-3.4.0.css">
 </head>
 <body>
 <!--导航-->
@@ -17,8 +20,8 @@
         <div class="ui container"> <!--位置偏移-->
             <div class="ui inverted secondary stackable menu" >
                 <h2 class="ui teal header item">Blog</h2>
-                <a th:href="@{/admin/blogs}" class="m-item active item m-mobile-hide"><i class="mini home icon m-style" ></i>博客</a>
-                <a th:href="@{/admin/types}" class="m-item item m-mobile-hide"><i class="mini idea icon m-style"></i>分类</a>
+                <a th:href="@{/admin/blogs}" class="m-item  item m-mobile-hide"><i class="mini home icon m-style" ></i>博客</a>
+                <a th:href="@{/admin/types}" class="m-item item active m-mobile-hide"><i class="mini idea icon m-style"></i>分类</a>
                 <a th:href="@{/admin/tags}" class="m-item item m-mobile-hide"><i class="mini tags icon m-style"></i>标签</a>
                 <div class="right menu m-item">
                     <div class="ui dropdown item m-mobile-hide m-item">
@@ -42,8 +45,8 @@
     <div class="ui attached pointing menu inverted ">
         <div class="ui container ">
             <div class="right menu">
-                <a href="#" class="item">发布</a>
-                <a href="#" class="item active pointing">列表</a>
+                <a th:href="@{/admin/types/input}" class="item active pointing">修改</a>
+                <a th:href="@{/admin/types}" class="item  ">列表</a>
             </div>
         </div>
     </div>
@@ -51,78 +54,37 @@
 <!--中间内容-->
     <div class="m-padded-tb-big m-container-small ">
        <div class="ui container">
-           <form action="#"  method="post" class="ui  secondary segment form">
-               <input type="hidden" name="pageNo">
-               <div class=" inline fields">
-                   <div class="field">
-                   <input type="text" name="title" placeholder="标题">
-                   </div>
-                   <div class="field">
-                      <div class="ui selection dropdown">
-                          <input type="hidden" name="typeId">
-                          <i class="icon dropdown"></i>
-                          <div class="default text">分类</div>
-                          <div class="menu">
-                              <div th:each="type:${types}" class="item" data-value="1" th:data-value="${type.id}" th:text="${type.name}">阅读</div>
-<!--                              <div class="item" data-value="2">电影</div>-->
-                          </div>
-                      </div>
-                   </div>
-                   <div class="field">
-                       <div class="ui checkbox">
-                           <input type="checkbox" id="recommend" name="recommend">
-                           <label for="recommend">推荐</label>
-                       </div>
-                   </div>
-                   <div class="field">
-                       <button type="button" id="search-btn" class="ui secondary button">
-                           <i class="search icon"></i>搜索
-                       </button>
+           <div  class="ui red message animated fadeOut" th:unless="${#strings.isEmpty(message)}" style="animation-delay: 2s">
+               <div class="header">提示：</div>
+               <center><h3  th:text="${message}" >恭喜操作成功</h3></center>
+           </div>
+           <form  action="#" class="ui form" th:object="${type}" th:action="@{/admin/types/{id}(id=*{id})}" method="post" >
+               <input type="hidden" name="id" th:value="*{id}">
+               <div class=" required field">
+                   <div class="ui left labeled input">
+                       <label  class="ui secondary label">名称</label>
+                       <input type="text" name="name" placeholder="分类的名称" th:value="*{name}">
                    </div>
                </div>
+               <div class="ui error message"></div>
+               <div class="ui right aligned container">
+                   <button type="button" class="ui inverted  button" onclick="window.history.go(-1)">返回</button>
+                    <button class="ui inverted submit button aliceblue">修改</button>
+               </div>
            </form>
-           <div id="table-container">
-               <table class="ui compact  table" th:fragment="blogList">
-                   <thead>
-                   <tr>
-                       <th>编号</th>
-                       <th>标题</th>
-                       <th>类型</th>
-                       <th>推荐</th>
-                       <th>更新时间</th>
-                       <th>操作</th>
-                   </tr>
-                   </thead>
-                   <tbody>
-                   <tr th:each="blog,iterStat :${pageInfo.list}">
-                       <td th:text="${iterStat.count}">1</td>
-                       <td th:text="${blog.title}">如何学习java</td>
-                       <td th:text="${blog.typeId}">学习</td>
-                       <td th:text="${blog.recommend}=='y' ?'是':'否'">是</td>
-                       <td th:text="${blog.updateTime}">2021-3-24 11:10</td>
-                       <td>
-                           <a  th:href="@{/admin/blogs/{id}/input(id=${blog.id})}" class="ui  icon button secondary left floated " >编辑</a>
-                           <a  th:href="@{/admin/blogs/{id}/delete(id=${blog.id})}" class="ui middle icon button red left flaoted  " >删除</a>
-                       </td>
-                   </tr>
-                   </tbody>
-                   <tfoot>
-                   <tr>
-                       <th colspan="6">
-                           <div class="ui mini right floated pagination menu" th:if="${pageInfo.pages>1}">
-                               <a onclick="pageNo(this)" th:attr="data-page=${pageInfo.pageNum-1}" th:unless="${pageInfo.isFirstPage}" class="item">上一页</a>
-                               <a onclick="pageNo(this)" th:attr="data-page=${pageInfo.pageNum+1}" th:unless="${pageInfo.isLastPage}" class="item">下一页</a>
-                           </div>
-                           <a href="#" class="ui  button icon blue left floated">新增</a>
-                       </th>
-                   </tr>
-                   </tfoot>
-               </table>
-           </div>
 
        </div>
     </div>
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <!--底部footer-->
     <footer class="ui inverted vertical segment m-padded-tb-massive"> <!--vertical和attached效果差不多，把圆角弄直，它是垂直的意思-->
        <div class="ui  container" align="center" >  <!--一个容器-->
@@ -163,27 +125,27 @@
     </footer>
 
 <script type="text/javascript">
+
+
     $("#menuButton").click(function () {
         $(".m-item").toggleClass("m-mobile-hide")  //如果有该属性就去除，没有就加上，得到切换的效果
     })
+
     $('.ui.dropdown').dropdown()  //默认点击弹出下拉框
 
-    function pageNo(obj) {
-        $("[name='pageNo']").val($(obj).data("page"));
-        loaddate();
-    }
-    $("#search-btn").click(function () {
-        loaddate();
-    })
-function loaddate() {
-$("#table-container").load(/*[[@{admin/blogs/search}]]*/"/admin/blogs/search",{
-    titel:$("[name='title']").val(),
-    typeId:$("[name='typeId']").val(),
-    recommend:$("[name='recommend']").prop("checked"),
-    pageNo:$("[name='pageNo']").val()
+    $(".ui.form").form({
+        fields:{
+            title:{
+                identifier:'name',
+                rules:[{
+                    type:'empty',
+                    prompt:'提示：分类名称不能为空'
+                }]
+            }
+        }
+    });
 
-});
-}
+
 </script>
 </body>
 </html>

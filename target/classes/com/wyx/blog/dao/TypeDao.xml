@@ -15,12 +15,15 @@ namespace ：必须有值，自定义的唯一字符串
         select *  from tbl_type where id=#{id}
     </select>
     <update id="updateType">
-            update table_type set name=#{name}
+            update tbl_type set name=#{name} where id=#{id}
     </update>
     <delete id="deleteType">
         delete from tbl_type where id=#{id}
     </delete>
     <select id="selectAllType" resultType="com.wyx.blog.domain.Type">
-        select * from tbl_type
+        select * from tbl_type order by id desc
+    </select>
+    <select id="getTypeByName" resultType="com.wyx.blog.domain.Type">
+        select * from tbl_type where name=#{name}
     </select>
 </mapper>
