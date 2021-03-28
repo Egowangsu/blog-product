@@ -23,4 +23,6 @@ public interface TagService {
     String[] getIds(Integer id);
 
     void deleteTagAndBlogRelation(Integer id);
+    //根据博客数量选取最多的前i个标签
+    List<Tag> listTagTop(Integer i);
 }

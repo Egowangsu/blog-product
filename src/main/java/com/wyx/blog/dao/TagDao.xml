@@ -36,4 +36,12 @@ namespace ：必须有值，自定义的唯一字符串
         delete from tbl_blog_tag_relation
         where blogId=#{id}
     </delete>
+    <select id="listTagTop" resultType="com.wyx.blog.domain.Tag">
+        select t.id,t.name,a.c as blogNums
+        from
+        tbl_tag t
+        join (select tagId,count(*) c from tbl_blog_tag_relation GROUP BY tagId ORDER BY c desc limit 0,#{size}) a
+        on t.id=a.tagId;
+
+    </select>
 </mapper>

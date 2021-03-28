@@ -123,7 +123,7 @@ public class BlogController {
         }
         Integer blogId=count;
         blog.setId(blogId);
-        blog.setUserId("1");   //博客所属者id
+        blog.setUserId(1);   //博客所属者id
         blog.setTypeId(request.getParameter("type.id"));  //博客的分类id
 
         String str=request.getParameter("tagIds");

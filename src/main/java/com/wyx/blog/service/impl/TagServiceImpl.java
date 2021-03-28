@@ -66,4 +66,9 @@ public class TagServiceImpl implements TagService {
     public void deleteTagAndBlogRelation(Integer id) {
         tagDao.deleteTagAndBlogRelation(id);
     }
+
+    @Override
+    public List<Tag> listTagTop(Integer size) {
+        return tagDao.listTagTop(size);
+    }
 }

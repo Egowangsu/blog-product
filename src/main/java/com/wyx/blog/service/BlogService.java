@@ -17,4 +17,10 @@ public interface BlogService {
     void deleteBlog(Integer id);
 
     Integer getCount();
+
+    List<Blog> getAllBlogs();
+
+    List<Blog> listBlogTop(Integer size);
+
+    List<Blog> getBlogsBySearch(String query);
 }

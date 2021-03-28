@@ -19,15 +19,16 @@ private String createTime;  //创建时间
 private String updateTime;    //跟新时间
 private String description;  //简短描述
 private String typeId;   //多对一，多的那端加外键
-private String userId;
+private User user;
+private Integer userId;
 private List<Tag> tag;
 private String tagIds;
-
+private String typeName;
     public Blog() {
     }
 
 
-    public Blog(Integer id, String title, String content, String picture, Integer flag, Integer views, boolean appreciate, boolean shareStatement, boolean commentabled, boolean published, boolean recommend, String createTime, String updateTime, String description, String typeId, String userId, List<Tag> tag, String tagIds) {
+    public Blog(Integer id, String title, String content, String picture, Integer flag, Integer views, boolean appreciate, boolean shareStatement, boolean commentabled, boolean published, boolean recommend, String createTime, String updateTime, String description, String typeId, User user, Integer userId, List<Tag> tag, String tagIds) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -43,9 +44,27 @@ private String tagIds;
         this.updateTime = updateTime;
         this.description = description;
         this.typeId = typeId;
+        this.user = user;
         this.userId = userId;
         this.tag = tag;
         this.tagIds = tagIds;
+    }
+
+
+    public String getTypeName() {
+        return typeName;
+    }
+
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getDescription() {
@@ -80,12 +99,12 @@ private String tagIds;
         this.typeId = typeId;
     }
 
-    public String getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Integer getId() {
@@ -211,9 +230,11 @@ private String tagIds;
                 ", updateTime='" + updateTime + '\'' +
                 ", description='" + description + '\'' +
                 ", typeId='" + typeId + '\'' +
-                ", userId='" + userId + '\'' +
+                ", user=" + user +
+                ", userId=" + userId +
                 ", tag=" + tag +
                 ", tagIds='" + tagIds + '\'' +
+                ", typeName='" + typeName + '\'' +
                 '}';
     }
 }

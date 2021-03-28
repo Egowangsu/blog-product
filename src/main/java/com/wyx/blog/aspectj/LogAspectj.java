@@ -6,7 +6,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
-@Aspect    //定义切面类
+  //定义切面类
 @Component
 @Slf4j
 public class LogAspectj {

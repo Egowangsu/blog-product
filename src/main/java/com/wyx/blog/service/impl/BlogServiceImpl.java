@@ -25,10 +25,6 @@ public class BlogServiceImpl implements BlogService {
     public List<Blog> listPage(BlogQuery blog) {   //搜索博客
 
         List<Blog> list= blogDao.selectAllBlogByCondition(blog);
-        for(Blog l:list){
-            System.out.println("实现类中的====================================");
-            System.out.println(l.isPublished());
-        }
         return list;
     }
 
@@ -38,8 +34,6 @@ public class BlogServiceImpl implements BlogService {
         blog.setUpdateTime(MyDate.getDate());
         blog.setViews(0);
         System.out.println(blog);
-        System.out.println("save实现类中的=========================================");
-        System.out.println("punlish值"+blog.isPublished());
         return blogDao.saveBlog(blog);
     }
     @Transactional
@@ -61,5 +55,20 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Integer getCount() {
         return blogDao.getCount();
+    }
+
+    @Override
+    public List<Blog> getAllBlogs() {
+        return blogDao.getAllBlogs();
+    }
+
+    @Override
+    public List<Blog> listBlogTop(Integer size) {
+        return blogDao.listBlogTop(size);
+    }
+
+    @Override
+    public List<Blog> getBlogsBySearch(String query) {
+        return blogDao.getBlogsBySearch(query);
     }
 }

@@ -18,4 +18,10 @@ public interface BlogDao {
     void deleteBlog(Integer id);
 
     Integer getCount();
+
+    List<Blog> getAllBlogs();
+
+    List<Blog> listBlogTop(Integer size);  //根据更新时间推荐最新的博客
+
+    List<Blog> getBlogsBySearch(String query);
 }

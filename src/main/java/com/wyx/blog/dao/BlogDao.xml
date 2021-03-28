@@ -102,5 +102,15 @@ namespace ：必须有值，自定义的唯一字符串
     <select id="getCount" resultType="int">
         select count(*)  from tbl_blog
     </select>
+    <select id="getAllBlogs" resultType="com.wyx.blog.domain.Blog">
+        select * from tbl_blog
+    </select>
+    <select id="listBlogTop" resultType="com.wyx.blog.domain.Blog">
+        select * from tbl_blog order by updateTime desc limit 0,#{size}
+    </select>
+    <select id="getBlogsBySearch" resultType="com.wyx.blog.domain.Blog">
+        select * from tbl_blog
+        where content like '%' #{query} '%' or title like  '%' #{query} '%'
 
+    </select>
 </mapper>

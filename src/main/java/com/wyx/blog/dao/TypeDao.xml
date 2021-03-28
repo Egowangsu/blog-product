@@ -26,4 +26,12 @@ namespace ：必须有值，自定义的唯一字符串
     <select id="getTypeByName" resultType="com.wyx.blog.domain.Type">
         select * from tbl_type where name=#{name}
     </select>
+    <select id="listTypeTop" resultType="com.wyx.blog.domain.Type">
+       select t.id,t.name, a.c as blogNums
+       from tbl_type t JOIN
+       (select typeId,count(*) as c from tbl_blog GROUP BY typeId ORDER BY c desc limit 0,#{size})
+       as a
+       on
+       t.id=a.typeId;
+    </select>
 </mapper>

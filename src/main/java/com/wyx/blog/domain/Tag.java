@@ -3,13 +3,22 @@ package com.wyx.blog.domain;
 public class Tag {
     private Integer id;
     private String name;
-
+    private Integer blogNums;
     public Tag() {
     }
 
-    public Tag(Integer id, String name) {
+    public Tag(Integer id, String name, Integer blogNums) {
         this.id = id;
         this.name = name;
+        this.blogNums = blogNums;
+    }
+
+    public Integer getBlogNums() {
+        return blogNums;
+    }
+
+    public void setBlogNums(Integer blogNums) {
+        this.blogNums = blogNums;
     }
 
     public Integer getId() {
@@ -33,6 +42,7 @@ public class Tag {
         return "Tag{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", blogNums=" + blogNums +
                 '}';
     }
 }

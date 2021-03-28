@@ -17,4 +17,7 @@ public interface TypeService {
     int deleteType(Integer id);
 
     Type getTypeByName(String name);
+
+    //根据分类的博客数量从大到小取size个大小的集合
+    List<Type> listTypeTop(Integer size);
 }

@@ -12,5 +12,7 @@ namespace ：必须有值，自定义的唯一字符串
             select * from tbl_user
             where userName=#{username} and password=#{password}
     </select>
-
+    <select id="getUser" resultType="com.wyx.blog.domain.User">
+        select * from tbl_user where id =1
+    </select>
 </mapper>

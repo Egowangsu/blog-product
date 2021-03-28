@@ -17,4 +17,6 @@ public interface TypeDao {
     List<Type> selectAllType();
 
     Type getTypeByName(String name);
+
+    List<Type> listTypeTop(Integer size);
 }

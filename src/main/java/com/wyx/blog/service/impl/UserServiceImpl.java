@@ -18,4 +18,9 @@ public class UserServiceImpl implements UserService {
         User user=userDao.checkUser(username, MD5Util.getMD5(password));
         return user;
     }
+
+    @Override
+    public User getUser() {
+        return userDao.getUser();
+    }
 }
