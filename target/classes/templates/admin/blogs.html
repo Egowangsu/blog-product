@@ -43,8 +43,8 @@
     <div class="ui attached pointing menu inverted ">
         <div class="ui container ">
             <div class="right menu">
-                <a href="#" class="item">发布</a>
-                <a href="#" class="item active pointing">列表</a>
+                <a th:href="@{/admin/blogs/input}" class="item">发布</a>
+                <a th:href="@{/admin/blogs}" class="item active pointing">列表</a>
             </div>
         </div>
     </div>
@@ -53,21 +53,24 @@
     <div class="m-padded-tb-big m-container-small ">
        <div class="ui container">
            <div class="ui  secondary segment form">
-               <input type="hidden" name="pageNo">
+               <input type="hidden" name="page">
                <div class=" inline fields">
                    <div class="field">
                    <input type="text" name="title" placeholder="标题">
                    </div>
                    <div class="field">
-                      <div class="ui selection dropdown">
-                          <input type="hidden" name="typeId">
-                          <i class="icon dropdown"></i>
-                          <div class="default text">分类</div>
-                          <div class="menu">
-                              <div th:each="type:${types}" class="item" data-value="1" th:data-value="${type.id}" th:text="${type.name}">阅读</div>
-<!--                              <div class="item" data-value="2">电影</div>-->
-                          </div>
-                      </div>
+                       <div class="ui labeled action input">
+                           <div class="ui type selection dropdown">
+                               <input type="hidden" name="typeId">
+                               <i class="icon dropdown"></i>
+                               <div class="default text">分类</div>
+                               <div class="menu">
+                                   <div th:each="type:${types}" class="item" data-value="1" th:data-value="${type.id}" th:text="${type.name}">阅读</div>
+                                   <!--                              <div class="item" data-value="2">电影</div>-->
+                               </div>
+                           </div>
+                           <button id="clear-btn" class="ui  compact secondary button">清除</button>
+                       </div>
                    </div>
                    <div class="field">
                        <div class="ui checkbox">
@@ -81,7 +84,6 @@
                        </button>
                    </div>
                </div>
-           </form>
            <div id="table-container">
                <table class="ui compact  table" th:fragment="blogList">
                    <thead>
@@ -101,7 +103,7 @@
                        <td th:text="${blog.title}">如何学习java</td>
                        <td th:text="${blog.typeId}">学习</td>
                        <td th:text="${blog.recommend} ?'是':'否'">是</td>
-                       <td th:text="${blog.published} ?'草稿':'发布'">草稿</td>
+                       <td th:text="${blog.published} ?'发布':'草稿'">草稿</td>
                        <td th:text="${blog.updateTime}">2021-3-24 11:10</td>
                        <td>
                            <a  th:href="@{/admin/blogs/{id}/input(id=${blog.id})}" class="ui  icon button secondary left floated " >编辑</a>
@@ -117,8 +119,8 @@
                    <tr>
                        <th colspan="7">
                            <div class="ui mini right floated pagination menu" th:if="${pageInfo.pages>1}">
-                               <a onclick="pageNo(this)" th:attr="data-pageNo=${pageInfo.pageNum-1}" th:unless="${pageInfo.isFirstPage}" class="item">上一页</a>
-                               <a onclick="pageNo(this)" th:attr="data-pageNo=${pageInfo.pageNum+1}" th:unless="${pageInfo.isLastPage}" class="item">下一页</a>
+                               <a  onclick="page(this)" th:attr="data-page=${pageInfo.pageNum-1}" th:unless="${pageInfo.isFirstPage}" class="item">上一页</a>
+                               <a  onclick="page(this)" th:attr="data-page=${pageInfo.pageNum+1}" th:unless="${pageInfo.isLastPage}" class="item">下一页</a>
                            </div>
                            <a href="#" th:href="@{/admin/blogs/input}" class="ui  button icon blue left floated">新增</a>
                        </th>
@@ -175,11 +177,12 @@
     })
     $('.ui.dropdown').dropdown()  //默认点击弹出下拉框
 
-    function pageNo(obj) {
-        $("[name='pageNo']").val($(obj).data("pageNo"));
+    function page(obj) {
+        $("[name='page']").val($(obj).data("page"));
         loaddata();
     }
     $("#search-btn").click(function () {
+        $("[name='page']").val(1);
         loaddata();
     })
 
@@ -189,9 +192,17 @@
             typeId : $("[name='typeId']").val(),
             recommend : $("[name='recommend']").prop('checked'),
             draft : $("[name='draft']").prop('checked'),
-            pageNo : $("[name='pageNo']").val()
+            pageNo : $("[name='page']").val()
         });
     }
+
+    $('#clear-btn')
+        .on('click', function() {
+            $('.ui.type.dropdown')
+                .dropdown('clear')
+            ;
+        })
+    ;
 </script>
 </body>
 </html>

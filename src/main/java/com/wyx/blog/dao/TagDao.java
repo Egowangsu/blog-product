@@ -19,4 +19,8 @@ public interface TagDao {
     Tag getTagByName(String name);
 
     void addTagAndBlogRelation(@Param("blogId") Integer blogId,@Param("res") String res);
+
+    String[] getTagIds(Integer id);
+
+    void deleteTagAndBlogRelation(Integer id);
 }

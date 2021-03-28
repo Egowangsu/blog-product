@@ -29,4 +29,11 @@ namespace ：必须有值，自定义的唯一字符串
     <insert id="addTagAndBlogRelation">
         insert into tbl_blog_tag_relation(blogId,tagId)values(#{blogId},#{res})
     </insert>
+    <select id="getTagIds" resultType="string">
+        select tagId from tbl_blog_tag_relation where blogId=#{id}
+    </select>
+    <delete id="deleteTagAndBlogRelation">
+        delete from tbl_blog_tag_relation
+        where blogId=#{id}
+    </delete>
 </mapper>

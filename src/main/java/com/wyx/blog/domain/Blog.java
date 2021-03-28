@@ -8,24 +8,26 @@ private Integer id;    //编号
 private String title;   //标题
 private String content;  //内容
 private String picture;  //图片地址
-private boolean flag;   //标签
+private Integer flag;   //标签
 private Integer views;   //浏览次数b
 private boolean appreciate;  // 是否开启赞赏
 private boolean shareStatement;  //是否开启分享
 private boolean commentabled;  //是否开启评论
 private boolean published;  //是发布还是保存草稿
 private boolean recommend;   //是否推荐
-private Date createTime;  //创建时间
-private Date updateTime;    //跟新时间
+private String createTime;  //创建时间
+private String updateTime;    //跟新时间
+private String description;  //简短描述
 private String typeId;   //多对一，多的那端加外键
 private String userId;
 private List<Tag> tag;
 private String tagIds;
+
     public Blog() {
     }
 
 
-    public Blog(Integer id, String title, String content, String picture, boolean flag, Integer views, boolean appreciate, boolean shareStatement, boolean commentabled, boolean published, boolean recommend, Date createTime, Date updateTime, String typeId, String userId, List<Tag> tag) {
+    public Blog(Integer id, String title, String content, String picture, Integer flag, Integer views, boolean appreciate, boolean shareStatement, boolean commentabled, boolean published, boolean recommend, String createTime, String updateTime, String description, String typeId, String userId, List<Tag> tag, String tagIds) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -39,9 +41,19 @@ private String tagIds;
         this.recommend = recommend;
         this.createTime = createTime;
         this.updateTime = updateTime;
+        this.description = description;
         this.typeId = typeId;
         this.userId = userId;
         this.tag = tag;
+        this.tagIds = tagIds;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getTagIds() {
@@ -117,11 +129,11 @@ private String tagIds;
         this.views = views;
     }
 
-    public boolean isFlag() {
+    public Integer getFlag() {
         return flag;
     }
 
-    public void setFlag(boolean flag) {
+    public void setFlag(Integer flag) {
         this.flag = flag;
     }
 
@@ -165,19 +177,19 @@ private String tagIds;
         this.recommend = recommend;
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
-    public Date getUpdateTime() {
+    public String getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Date updateTime) {
+    public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
     }
 
@@ -188,17 +200,20 @@ private String tagIds;
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", picture='" + picture + '\'' +
-                ", flag='" + flag + '\'' +
+                ", flag=" + flag +
                 ", views=" + views +
                 ", appreciate=" + appreciate +
                 ", shareStatement=" + shareStatement +
                 ", commentabled=" + commentabled +
                 ", published=" + published +
                 ", recommend=" + recommend +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                ", typeId=" + typeId +
-                ", userId=" + userId +
+                ", createTime='" + createTime + '\'' +
+                ", updateTime='" + updateTime + '\'' +
+                ", description='" + description + '\'' +
+                ", typeId='" + typeId + '\'' +
+                ", userId='" + userId + '\'' +
+                ", tag=" + tag +
+                ", tagIds='" + tagIds + '\'' +
                 '}';
     }
 }

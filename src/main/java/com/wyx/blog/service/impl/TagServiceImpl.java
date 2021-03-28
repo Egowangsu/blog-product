@@ -56,4 +56,14 @@ public class TagServiceImpl implements TagService {
     public void addTagAndBlogRelation(Integer blogId, String res) {
         tagDao.addTagAndBlogRelation(blogId,res);
     }
+
+    @Override
+    public String[] getIds(Integer id) {
+        return tagDao.getTagIds(id);
+    }
+
+    @Override
+    public void deleteTagAndBlogRelation(Integer id) {
+        tagDao.deleteTagAndBlogRelation(id);
+    }
 }

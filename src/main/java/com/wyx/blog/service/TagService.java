@@ -19,4 +19,8 @@ public interface TagService {
     Tag getTagByName(String name);
 
     void addTagAndBlogRelation(Integer blogId, String res);
+
+    String[] getIds(Integer id);
+
+    void deleteTagAndBlogRelation(Integer id);
 }

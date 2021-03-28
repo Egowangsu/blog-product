@@ -22,6 +22,7 @@ namespace ：必须有值，自定义的唯一字符串
             recommend,
             createTime,
             updateTime,
+            description,
             typeId,
             userId
            ) values(
@@ -37,6 +38,7 @@ namespace ：必须有值，自定义的唯一字符串
             #{recommend},
             #{createTime},
             #{updateTime},
+            #{description},
             #{typeId},
             #{userId}
            )
@@ -54,18 +56,33 @@ namespace ：必须有值，自定义的唯一字符串
                     appreciate=#{blog.appreciate},
                     shareStatement=#{blog.shareStatement},
                     commentabled=#{blog.commentabled},
+                    published=#{blog.published},
+                    description=#{blog.description},
                     recommend=#{blog.recommend},
-                    createTime=#{blog.createTime},
                     updateTime=#{blog.updateTime},
-                    typeId=#{blog.typeId},
-                    userId=#{blog.userId}
+                    typeId=#{blog.typeId}
+                    where id=#{id}
     </update>
     <delete id="deleteBlog">
         delete from  tbl_blog where id=#{id}
     </delete>
     <select id="selectAllBlogByCondition" resultType="com.wyx.blog.domain.Blog">
-        select b.id,b.title, t.name as typeId,b.recommend,b.updateTime from tbl_blog b join tbl_type t on b.typeId=t.id
-
+        select
+          b.id,
+          b.title,
+          b.content,
+          b.picture,
+          b.views,
+          b.appreciate,
+          b.shareStatement,
+          b.commentabled,
+          b.published,
+          b.recommend,
+          b.createTime,
+          b.updateTime,
+          t.name as typeId,
+          b.userId
+          from tbl_blog b join tbl_type t on b.typeId=t.id
         <where>
             <if test="title!=null and title!=''">  <!--这里的name是map中的key,不能乱填-->
                 b.title like '%' #{title} '%'
