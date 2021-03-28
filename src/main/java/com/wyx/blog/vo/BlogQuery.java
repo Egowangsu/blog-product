@@ -3,12 +3,12 @@ package com.wyx.blog.vo;
 public class BlogQuery {
     private String title;
     private Integer typeId;
-    private String recommend;
+    private Boolean recommend;
 
     public BlogQuery() {
     }
 
-    public BlogQuery(String title, Integer typeId, String recommend) {
+    public BlogQuery(String title, Integer typeId, Boolean recommend) {
         this.title = title;
         this.typeId = typeId;
         this.recommend = recommend;
@@ -30,11 +30,11 @@ public class BlogQuery {
         this.typeId = typeId;
     }
 
-    public String getRecommend() {
+    public Boolean getRecommend() {
         return recommend;
     }
 
-    public void setRecommend(String recommend) {
+    public void setRecommend(Boolean recommend) {
         this.recommend = recommend;
     }
 }

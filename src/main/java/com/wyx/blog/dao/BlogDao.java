@@ -9,7 +9,7 @@ import java.util.List;
 public interface BlogDao {
     Blog getBlog(Integer id);
 
-    List<Blog> selectAllBlogByCondition(@Param("blog") BlogQuery blog);
+    List<Blog> selectAllBlogByCondition(BlogQuery blog);
 
     Integer saveBlog( Blog blog);
 

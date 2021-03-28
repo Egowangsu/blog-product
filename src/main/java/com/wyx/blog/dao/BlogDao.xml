@@ -66,7 +66,18 @@ namespace ：必须有值，自定义的唯一字符串
     <select id="selectAllBlogByCondition" resultType="com.wyx.blog.domain.Blog">
         select b.id,b.title, t.name as typeId,b.recommend,b.updateTime from tbl_blog b join tbl_type t on b.typeId=t.id
 
-
+        <where>
+            <if test="title!=null and title!=''">  <!--这里的name是map中的key,不能乱填-->
+                b.title like '%' #{title} '%'
+            </if>
+            <if test="typeId!=null and typeId!=''">
+                and t.id = #{typeId}
+            </if>
+            <if test="recommend!=null and recommend!=''">
+                and recommend=true
+            </if>
+        </where>
+            order by updateTime desc
     </select>
     <select id="getBlogByName" resultType="com.wyx.blog.domain.Blog">
         select * from  tbl_blog where name=#{name}
