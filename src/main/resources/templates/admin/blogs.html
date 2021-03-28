@@ -90,6 +90,7 @@
                        <th>标题</th>
                        <th>类型</th>
                        <th>推荐</th>
+                       <th>状态</th>
                        <th>更新时间</th>
                        <th>操作</th>
                    </tr>
@@ -100,6 +101,7 @@
                        <td th:text="${blog.title}">如何学习java</td>
                        <td th:text="${blog.typeId}">学习</td>
                        <td th:text="${blog.recommend} ?'是':'否'">是</td>
+                       <td th:text="${blog.published} ?'草稿':'发布'">草稿</td>
                        <td th:text="${blog.updateTime}">2021-3-24 11:10</td>
                        <td>
                            <a  th:href="@{/admin/blogs/{id}/input(id=${blog.id})}" class="ui  icon button secondary left floated " >编辑</a>
@@ -113,7 +115,7 @@
                    </div>
                    <tfoot>
                    <tr>
-                       <th colspan="6">
+                       <th colspan="7">
                            <div class="ui mini right floated pagination menu" th:if="${pageInfo.pages>1}">
                                <a onclick="pageNo(this)" th:attr="data-pageNo=${pageInfo.pageNum-1}" th:unless="${pageInfo.isFirstPage}" class="item">上一页</a>
                                <a onclick="pageNo(this)" th:attr="data-pageNo=${pageInfo.pageNum+1}" th:unless="${pageInfo.isLastPage}" class="item">下一页</a>

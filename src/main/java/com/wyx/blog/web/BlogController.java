@@ -84,7 +84,7 @@ public class BlogController {
              //将博客和标签关系存入
             tagService.addTagAndBlogRelation(blogId,res);
         }
-        int count2=blogService.saveBlog(blog);
+        Integer count2=blogService.saveBlog(blog);
         if(count2!=1){
             attributes.addFlashAttribute("message","博客添加失败");
         }else{

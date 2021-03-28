@@ -10,7 +10,7 @@ namespace ：必须有值，自定义的唯一字符串
 
     <insert id="saveBlog" >
            insert into tbl_blog(
-           id,
+            id,
             title,
             content,
             picture,
@@ -25,20 +25,20 @@ namespace ：必须有值，自定义的唯一字符串
             typeId,
             userId
            ) values(
-            id=#{blog.id},
-            title=#{blog.title},
-            content=#{blog.content},
-            picture=#{blog.picture},
-            views=#{blog.views},
-            appreciate=#{blog.appreciate},
-            shareStatement=#{blog.shareStatement},
-            commentabled=#{blog.commentabled},
-            published=#{blog.published},
-            recommend=#{blog.recommend},
-            createTime=#{blog.createTime},
-            updateTime=#{blog.updateTime},
-            typeId=#{blog.typeId},
-            userId=#{blog.userId}
+            #{id},
+            #{title},
+            #{content},
+            #{picture},
+            #{views},
+            #{appreciate},
+            #{shareStatement},
+            #{commentabled},
+            #{published},
+            #{recommend},
+            #{createTime},
+            #{updateTime},
+            #{typeId},
+            #{userId}
            )
     </insert>
     <select id="getBlog" resultType="com.wyx.blog.domain.Blog">
@@ -65,18 +65,8 @@ namespace ：必须有值，自定义的唯一字符串
     </delete>
     <select id="selectAllBlogByCondition" resultType="com.wyx.blog.domain.Blog">
         select b.id,b.title, t.name as typeId,b.recommend,b.updateTime from tbl_blog b join tbl_type t on b.typeId=t.id
-        <where>
-        <if test="blog.title!=null and blog.title!='' ">
-            and title like '%' #{blog.title} '%'
-        </if>
-        <if test="blog.typeId!= null and blog.typeId!= '' ">
-            and typeId=#{blog.typeId}
-        </if>
-         <if test="blog.recommend!= null and blog.recommend!= '' ">
-            and recommend='y'
-        </if>
-        </where>
-        group by updateTime
+
+
     </select>
     <select id="getBlogByName" resultType="com.wyx.blog.domain.Blog">
         select * from  tbl_blog where name=#{name}

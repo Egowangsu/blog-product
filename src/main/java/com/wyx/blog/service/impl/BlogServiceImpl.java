@@ -22,10 +22,14 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public List<Blog> listPage(BlogQuery blog) {
-        return blogDao.selectAllBlogByCondition(blog);
+    public List<Blog> listPage(BlogQuery blog) {   //搜索博客
+
+        List<Blog> list= blogDao.selectAllBlogByCondition(blog);
+        System.out.println("======================================");
+        System.out.println(list);
+        return list;
     }
-    @Transactional
+
     @Override
     public Integer saveBlog(Blog blog) {
         blog.setCreateTime(new Date());
