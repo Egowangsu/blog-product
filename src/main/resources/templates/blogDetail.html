@@ -141,7 +141,7 @@
                                         </a>
                                         <div class="content">
                                             <a class="author" >
-                                                <span th:text="${reply.nickName}"></span><span th:text="|@ ${reply.parentComment.nickName}|" class="m-teal"></span>
+                                                <span th:text="${reply.nickName}">&nbsp;</span><span th:text="|@ ${reply.parentComment.nickName}|" class="m-teal"></span>
                                             </a>
                                             <div class="metadata">
                                                 <span class="date" th:text="${reply.createTime}">今天下午 5:42</span>
@@ -348,6 +348,7 @@ $("#commentPost-btn").click(function () {
 })
 
     $(function () {   //详情页面加载完毕后，自动刷新评论区域，读取评论
+
         $("#comment-container").load(/*[[@{/comments/{id}(id=${blog.id})}]]*/"");
     });
 
@@ -366,8 +367,8 @@ $("#commentPost-btn").click(function () {
     function clearContent() {
         $("[name='content']").val('');
         $("[name='parentComment.id']").val(-1);
-        $("[id='commentEditor']").attr("placeholder", "请输入评论信息...");
-        document.getElementById("son").innerText='';
+        $("#mes").prop("placeholder", "请输入评论信息...");
+
     }
     function reply(obj) {
         var commentId = $(obj).data('commentid');

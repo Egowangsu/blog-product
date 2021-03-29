@@ -31,7 +31,8 @@ public class CommentController {
             for(Comment c2:list2){
                 c2.setParentComment(commentService.getParentComment(c2.getParentCommentId()));
             }
-
+            System.out.println(c
+            );
         }
         model.addAttribute("comments",list);  //根据博客id返回他的全部评论
         return "blogDetail::commentList";

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 @Service
@@ -70,7 +71,7 @@ public class CommentServiceImpl implements CommentService {
                 topCommend.add(c);
                 sonCommend=new ArrayList<Comment>(); //将上个存的数据清空
             }
-
+            Collections.reverse(topCommend);
             return topCommend;
         }
 
@@ -78,13 +79,14 @@ public class CommentServiceImpl implements CommentService {
 
         public List<Comment> combineChildren2(List<Comment> list){
             for(Comment c:list){   //判断二级节点以及子节点有有没有子类
-                List<Comment> sonList=commentDao.getSonCommentByParentId(c.getId());
-                if(sonList.size()>0){
-                    combineChildren2(sonList);  //只要有子集，就继续找，找到根
-                }
                 //到这里，把对象装进集合里
                 sonCommend.add(c);
+                List<Comment> sonList=commentDao.getSonCommentByParentId(c.getId());
+                if(sonList.size()>0){
+                    combineChildren2(sonList);  //只要有子集，就继续找，找到底
+                }
             }
+            //Collections.reverse(sonCommend);  //将集合倒叙
             return sonCommend;
         }
 

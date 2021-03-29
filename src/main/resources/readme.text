@@ -91,3 +91,13 @@
         left join tbl_comment r on s.id=r.parentCommentId
         where s.blogId=#{id} and order by s.createTime desc
 </select>
+
+
+排序一共分三部分
+第一部分就是顶级的评论 排列顺序看listCommentsByBlogId,根据创建的时间看
+第二部分就是顶级评论下的二级评论，他们被存储在顶级评论的replyComment集合中，根据集合的顺序依次取到值
+它就是在取顶级评论时候一起拿的所以顺序是跟这顶级一起的，也是取最新的第一位
+第三部分就是二级评论下的品论及其子频率，排列数序看方法getSonCommentByParentId，根据创建的时间看
+
+根据现在的设置：评论的规则是，顶级评论根据创建时间从最新的开始
+                            所有的回复评论也是自己回复对象中最新的，排最前见

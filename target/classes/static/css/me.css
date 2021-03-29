@@ -10,7 +10,17 @@ body{
     background: url("../images/bk2.jpg") no-repeat  !important;
     background-size:100% 100%;
 }
+.footer{
 
+    height: 100px;
+
+    width: 100%;
+
+    position: fixed;
+
+    bottom: 0;
+
+}
 .m-padded-tb-mini{
     padding-top: 0.2em !important;
     padding-bottom: 0.2em !important;
