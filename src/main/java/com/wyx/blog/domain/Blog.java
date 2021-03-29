@@ -8,7 +8,7 @@ private Integer id;    //编号
 private String title;   //标题
 private String content;  //内容
 private String picture;  //图片地址
-private Integer flag;   //标签
+private String flag;   //文章类型   转载/翻译/原创
 private Integer views;   //浏览次数b
 private boolean appreciate;  // 是否开启赞赏
 private boolean shareStatement;  //是否开启分享
@@ -17,6 +17,7 @@ private boolean published;  //是发布还是保存草稿
 private boolean recommend;   //是否推荐
 private String createTime;  //创建时间
 private String updateTime;    //跟新时间
+private String updateTime2;    //跟新时间
 private String description;  //简短描述
 private String typeId;   //多对一，多的那端加外键
 private User user;
@@ -27,8 +28,7 @@ private String typeName;
     public Blog() {
     }
 
-
-    public Blog(Integer id, String title, String content, String picture, Integer flag, Integer views, boolean appreciate, boolean shareStatement, boolean commentabled, boolean published, boolean recommend, String createTime, String updateTime, String description, String typeId, User user, Integer userId, List<Tag> tag, String tagIds) {
+    public Blog(Integer id, String title, String content, String picture, String flag, Integer views, boolean appreciate, boolean shareStatement, boolean commentabled, boolean published, boolean recommend, String createTime, String updateTime, String updateTime2, String description, String typeId, User user, Integer userId, List<Tag> tag, String tagIds, String typeName) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -42,14 +42,15 @@ private String typeName;
         this.recommend = recommend;
         this.createTime = createTime;
         this.updateTime = updateTime;
+        this.updateTime2 = updateTime2;
         this.description = description;
         this.typeId = typeId;
         this.user = user;
         this.userId = userId;
         this.tag = tag;
         this.tagIds = tagIds;
+        this.typeName = typeName;
     }
-
 
     public String getTypeName() {
         return typeName;
@@ -148,13 +149,6 @@ private String typeName;
         this.views = views;
     }
 
-    public Integer getFlag() {
-        return flag;
-    }
-
-    public void setFlag(Integer flag) {
-        this.flag = flag;
-    }
 
     public boolean isAppreciate() {
         return appreciate;
@@ -210,6 +204,22 @@ private String typeName;
 
     public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getUpdateTime2() {
+        return updateTime2;
+    }
+
+    public void setUpdateTime2(String updateTime2) {
+        this.updateTime2 = updateTime2;
+    }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
     }
 
     @Override

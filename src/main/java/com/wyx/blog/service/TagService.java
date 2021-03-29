@@ -1,5 +1,6 @@
 package com.wyx.blog.service;
 
+import ch.qos.logback.core.rolling.helper.IntegerTokenConverter;
 import com.wyx.blog.domain.Tag;
 
 import java.util.List;
@@ -25,4 +26,5 @@ public interface TagService {
     void deleteTagAndBlogRelation(Integer id);
     //根据博客数量选取最多的前i个标签
     List<Tag> listTagTop(Integer i);
+    List<Tag> getTagList(Integer id);
 }

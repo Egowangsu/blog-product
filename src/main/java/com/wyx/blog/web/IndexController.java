@@ -3,6 +3,7 @@ package com.wyx.blog.web;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wyx.blog.domain.Blog;
+import com.wyx.blog.domain.Tag;
 import com.wyx.blog.domain.Type;
 import com.wyx.blog.service.BlogService;
 import com.wyx.blog.service.TagService;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -35,13 +37,9 @@ public class IndexController {
         //startPage后面紧跟的查询就是分页查询
         List<Blog> blogs=blogService.getAllBlogs();  //拿到所有的博客，在页面进行展示
         for(Blog blog:blogs){
-            blog.setUser(userService.getUser());
-            Type type=typeService.getType(Integer.valueOf(blog.getTypeId()));
-            blog.setTypeName(type.getName());
-            String newUpdateTime=blog.getUpdateTime().substring(0, 10);  //修改更新日期的格式
-            System.out.println(newUpdateTime);
-            blog.setUpdateTime(newUpdateTime);
+           setBlog(blog);
         }
+
         //用pageInfo对结果进行包装，里面封装了各种属性
         PageInfo page=new PageInfo(blogs,4); //4表示连续显示4页,就是下面显示的页数
         model.addAttribute("pageInfo",page);
@@ -51,8 +49,35 @@ public class IndexController {
         return "index";
     }
 
-    @GetMapping("/blog/{id}")
-        public  String blog(){
-        return "blog";
+    @GetMapping("/blog/{id}")     //跳转到博客详情页
+        public  String blog(@PathVariable("id") Integer id,Model model){
+        Blog blog=blogService.getAndConvert(id);
+        setBlog2(blog);
+        getTags(blog,model);  //将关联的标签拼接字符串返回给前端详情页
+        model.addAttribute("blog",blog);
+        return "blogDetail";
+        }
+
+
+        public void setBlog(Blog blog){    //将用户信息，分类名称和更改后的日期放入博客中
+            blog.setUser(userService.getUser());
+            Type type=typeService.getType(Integer.valueOf(blog.getTypeId()));
+            blog.setTypeName(type.getName());
+            String newUpdateTime=blog.getUpdateTime().substring(0, 10);  //修改更新日期的格式
+            blog.setUpdateTime(newUpdateTime);
+        }
+         public void setBlog2(Blog blog){    //将用户信息，分类名称和更改后的日期放入博客中
+        blog.setUser(userService.getUser());
+        Type type=typeService.getType(Integer.valueOf(blog.getTypeId()));
+        blog.setTypeName(type.getName());
+        String newUpdateTime=blog.getUpdateTime().substring(0, 10);  //修改更新日期的格式
+        blog.setUpdateTime2(newUpdateTime);
+    }
+
+        public void getTags(Blog blog,Model model){  //把关系表中该博客的标签全部拿出来,拼接字符串返回给详情页
+               List<Tag> tags=tagService.getTagList(blog.getId());
+               if(tags!=null){
+                   model.addAttribute("tags",tags);
+               }
         }
 }

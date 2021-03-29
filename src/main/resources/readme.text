@@ -1,0 +1,93 @@
+<resultMap id="res" type="com.wyx.blog.domain.Comment">
+        <id column="id" property="id"/>
+        <result column="nickName"  property="nickName"/>
+        <result column="email"  property="email"/>
+        <result column="content"  property="content"/>
+        <result column="avatar"  property="avatar"/>
+        <result column="createTime"  property="createTime"/>
+        <result column="blogId"  property="blogId"/>
+        <result column="parentCommentId"  property="parentCommentId"/>
+        <association property="blog" javaType="com.wyx.blog.domain.Blog">
+            <id column="id" property="id"/>
+            <result column="title" property="title"/>
+            <result column="content" property="content"/>
+            <result column="picture" property="picture"/>
+            <result column="flag" property="flag"/>
+            <result column="views" property="views"/>
+            <result column="appreciate" property="appreciate"/>
+            <result column="shareStatement" property="shareStatement"/>
+            <result column="commentabled" property="commentabled"/>
+            <result column="published" property="published"/>
+            <result column="recommend" property="recommend"/>
+            <result column="createTime" property="createTime"/>
+            <result column="updateTime" property="updateTime"/>
+            <result column="typeId" property="typeId"/>
+            <result column="userId" property="userId"/>
+            <result column="description" property="description"/>
+        </association>
+        <association property="parentComment" javaType="com.wyx.blog.domain.Comment">
+            <id column="pid" property="id"/>
+            <result column="pnickName"  property="nickName"/>
+            <result column="pemail"  property="email"/>
+            <result column="pcontent"  property="content"/>
+            <result column="pavatar"  property="avatar"/>
+            <result column="pcreateTime"  property="createTime"/>
+            <result column="pblogId"  property="blogId"/>
+        </association>
+        <collection property="replyComment" ofType="com.wyx.blog.domain.Comment">
+            <id column="rid" property="id"/>
+            <result column="rnickName"  property="nickName"/>
+            <result column="remail"  property="email"/>
+            <result column="rcontent"  property="content"/>
+            <result column="ravatar"  property="avatar"/>
+            <result column="rcreateTime"  property="createTime"/>
+            <result column="rblogId"  property="blogId"/>
+            <result column="id"  property="parentCommentId"/>
+        </collection>
+    </resultMap>
+<select id="listCommentsByBlogId" resultMap="res">
+        select
+        s.id,
+        s.nickName,
+        s.email,
+        s.content,
+        s.avatar,
+        s.createTime,
+        s.blogId,
+        s.parentCommentId,
+        p.id as pid,
+        p.nickName as pnickName,
+        p.email as pemail,
+        p.content as pcontent,
+        p.avatar as pavatar,
+        p.createTime as pcreateTime,
+        p.blogId as pblogId,
+        r.id as rid,
+        r.nickName as rnickName,
+        r.email as remail,
+        r.content as rcontent,
+        r.avatar as ravatar,
+        r.createTime as rcreateTime,
+        r.blogId as rblogId,
+        r.parentCommentId as rparentCommentId,
+        b.id ,
+        b.title,
+        b.content,
+        b.picture,
+        b.flag,
+        b.views,
+        b.appreciate,
+        b.shareStatement,
+        b.commentabled,
+        b.published,
+        b.recommend,
+        b.createTime,
+        b.updateTime,
+        b.typeId,
+        b.userId,
+        b.description
+        from tbl_blog b join tbl_comment s on b.id=s.blogId
+        left join tbl_comment p on s.parentCommentId=p.id
+        left join tbl_comment r on s.id=r.parentCommentId
+        where s.blogId=#{id} and order by s.createTime desc
+</select>

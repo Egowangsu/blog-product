@@ -69,6 +69,22 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>    <!--markDown格式转为其他格式，如我需要的html格式，在详情页面显示-->
+            <groupId>org.commonmark</groupId>
+            <artifactId>commonmark</artifactId>
+            <version>0.17.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.commonmark</groupId>  <!--响应移动端-->
+            <artifactId>commonmark-ext-gfm-tables</artifactId>
+            <version>0.17.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.commonmark</groupId>  <!--响应移动端-->
+            <artifactId>commonmark-ext-heading-anchor</artifactId>
+            <version>0.17.1</version>
+        </dependency>
     </dependencies>
 
     <build>

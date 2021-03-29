@@ -90,8 +90,8 @@ public class BlogController {
         //新增时候的提交博客
     @PostMapping("/blogs")
     public String post(Blog blog, HttpSession session, RedirectAttributes attributes, HttpServletRequest request){
-
-
+        String flag=request.getParameter("flag");
+        System.out.println("===============================================:"+flag);
         if(blog.getId()!=null){   //如果传过来的blog有id，则是修改
             blog.setTypeId(request.getParameter("type.id"));  //博客的分类id
             //存入标签关系前先把原来的关系清空

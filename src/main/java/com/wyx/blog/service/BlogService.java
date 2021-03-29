@@ -23,4 +23,5 @@ public interface BlogService {
     List<Blog> listBlogTop(Integer size);
 
     List<Blog> getBlogsBySearch(String query);
+    Blog getAndConvert(Integer id);  //转换博客内容格式
 }

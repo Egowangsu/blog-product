@@ -127,7 +127,9 @@ body{
 .m-color-black{
     color: black;
 }
-
+.m-teal{
+    color: #00B5AD !important;
+}
 
 /*菜单按钮，在电脑端看是隐藏的，在手机端显示*/
 .m-mobile-show{

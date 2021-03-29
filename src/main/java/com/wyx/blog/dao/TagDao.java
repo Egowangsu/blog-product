@@ -25,4 +25,6 @@ public interface TagDao {
     void deleteTagAndBlogRelation(Integer id);
 
     List<Tag> listTagTop(Integer size);
+
+    List<Tag> getTagList(Integer id);
 }

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+namespace ：必须有值，自定义的唯一字符串
+推荐使用： dao 接口的全限定名称
+-->
+<mapper namespace="com.wyx.blog.dao.CommentDao">
+    <resultMap id="res" type="com.wyx.blog.domain.Comment">
+        <id column="id" property="id"/>
+        <result column="nickName"  property="nickName"/>
+        <result column="email"  property="email"/>
+        <result column="content"  property="content"/>
+        <result column="avatar"  property="avatar"/>
+        <result column="createTime"  property="createTime"/>
+        <result column="blogId"  property="blogId"/>
+        <result column="parentCommentId"  property="parentCommentId"/>
+        <association property="blog" javaType="com.wyx.blog.domain.Blog">
+            <id column="id" property="id"/>
+            <result column="title" property="title"/>
+            <result column="content" property="content"/>
+            <result column="picture" property="picture"/>
+            <result column="flag" property="flag"/>
+            <result column="views" property="views"/>
+            <result column="appreciate" property="appreciate"/>
+            <result column="shareStatement" property="shareStatement"/>
+            <result column="commentabled" property="commentabled"/>
+            <result column="published" property="published"/>
+            <result column="recommend" property="recommend"/>
+            <result column="createTime" property="createTime"/>
+            <result column="updateTime" property="updateTime"/>
+            <result column="typeId" property="typeId"/>
+            <result column="userId" property="userId"/>
+            <result column="description" property="description"/>
+        </association>
+        <collection property="replyComment" ofType="com.wyx.blog.domain.Comment">
+            <id column="rid" property="id"/>
+            <result column="rnickName"  property="nickName"/>
+            <result column="remail"  property="email"/>
+            <result column="rcontent"  property="content"/>
+            <result column="ravatar"  property="avatar"/>
+            <result column="rcreateTime"  property="createTime"/>
+            <result column="rblogId"  property="blogId"/>
+            <result column="id"  property="parentCommentId"/>
+        </collection>
+    </resultMap>
+<select id="listCommentsByBlogId" resultMap="res">
+        select
+        s.id,
+        s.nickName,
+        s.email,
+        s.content,
+        s.avatar,
+        s.createTime,
+        s.blogId,
+        s.parentCommentId,
+        r.id as rid,
+        r.nickName as rnickName,
+        r.email as remail,
+        r.content as rcontent,
+        r.avatar as ravatar,
+        r.createTime as rcreateTime,
+        r.blogId as rblogId,
+        r.parentCommentId as rparentCommentId,
+        b.id ,
+        b.title,
+        b.content,
+        b.picture,
+        b.flag,
+        b.views,
+        b.appreciate,
+        b.shareStatement,
+        b.commentabled,
+        b.published,
+        b.recommend,
+        b.createTime,
+        b.updateTime,
+        b.typeId,
+        b.userId,
+        b.description
+        from tbl_blog b join tbl_comment s on b.id=s.blogId
+        left join tbl_comment r on s.id=r.parentCommentId
+        where s.blogId=#{id} and s.parentCommentId = -1 order by s.createTime desc
+</select>
+<select id="getCommentById" resultType="com.wyx.blog.domain.Comment">
+    select * from tbl_comment where id=#{id}
+</select>
+    <insert id="saveComment" >
+        insert into tbl_comment(
+        id,
+        nickName,
+        email,
+        content,
+        avatar,
+        createTime,
+        blogId,
+        parentCommentId
+        )values(
+        #{id},
+        #{nickName},
+        #{email},
+        #{content},
+        #{avatar},
+        #{createTime},
+        #{blogId},
+        #{parentCommentId}
+        )
+    </insert>
+    <select id="getSonCommentByParentId" resultType="com.wyx.blog.domain.Comment">
+        select * from tbl_comment where parentCommentId=#{id}
+    </select>
+    <select id="getParentComment" resultType="com.wyx.blog.domain.Comment">
+        select * from tbl_comment where id=#{id}
+    </select>
+</mapper>

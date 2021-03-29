@@ -44,4 +44,9 @@ namespace ：必须有值，自定义的唯一字符串
         on t.id=a.tagId;
 
     </select>
+
+    <select id="getTagList" resultType="com.wyx.blog.domain.Tag">
+        select *  from tbl_tag a join (select tagId from tbl_blog_tag_relation where blogId=#{id}) t on
+        a.id=t.tagId
+    </select>
 </mapper>

@@ -71,4 +71,9 @@ public class TagServiceImpl implements TagService {
     public List<Tag> listTagTop(Integer size) {
         return tagDao.listTagTop(size);
     }
+
+    @Override
+    public List<Tag> getTagList(Integer id) {
+        return tagDao.getTagList(id);
+    }
 }

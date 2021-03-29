@@ -4,6 +4,8 @@ import com.wyx.blog.dao.BlogDao;
 import com.wyx.blog.domain.Blog;
 import com.wyx.blog.exception.NotFoundException;
 import com.wyx.blog.service.BlogService;
+import com.wyx.blog.util.MarkdownUtils;
+import com.wyx.blog.util.MyBeanUtils;
 import com.wyx.blog.util.MyDate;
 import com.wyx.blog.vo.BlogQuery;
 import org.springframework.stereotype.Service;
@@ -70,5 +72,18 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public List<Blog> getBlogsBySearch(String query) {
         return blogDao.getBlogsBySearch(query);
+    }
+
+    @Override
+    public Blog getAndConvert(Integer id) {
+        Blog blog=blogDao.getBlog(id);
+        if (blog==null){
+            throw new NotFoundException("博客不存在");
+        }
+        Blog b = new Blog();
+        MyBeanUtils.copyPropertiesIgnoreNull(blog, b);  //copy blog的值到b
+        String content =b.getContent();
+        b.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
+        return b;
     }
 }
