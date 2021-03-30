@@ -4,6 +4,7 @@ import com.wyx.blog.domain.Blog;
 import com.wyx.blog.vo.BlogQuery;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BlogService {
     Blog getBlog(Integer id);
@@ -26,4 +27,12 @@ public interface BlogService {
     Blog getAndConvert(Integer id);  //转换博客内容格式
 
     void updateViews(Integer id);
+
+    List<Blog> getBlogByTypeId(Integer id);
+
+    List<Blog> getBlogByTagId(Integer id);
+
+    Map<String,List<Blog>> archiveBLog();
+
+    Integer getBlogCount();
 }

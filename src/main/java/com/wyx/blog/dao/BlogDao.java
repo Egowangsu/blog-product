@@ -26,4 +26,14 @@ public interface BlogDao {
     List<Blog> getBlogsBySearch(String query);
 
     void updateViews(Integer id);
+
+    List<Blog> getBlogByTypeId(Integer id);
+
+    List<Blog> getBlogByTagId(Integer id);
+
+    List<String> getYear();
+
+    List<Blog> getBlogByYear(String year);
+
+    Integer getBlogCount();
 }

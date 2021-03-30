@@ -119,4 +119,19 @@ namespace ：必须有值，自定义的唯一字符串
         set views=views+1
         where id=#{id}
     </update>
+    <select id="getBlogByTypeId" resultType="com.wyx.blog.domain.Blog">
+        select * from tbl_blog where typeId=#{id}
+    </select>
+    <select id="getBlogByTagId" resultType="com.wyx.blog.domain.Blog">
+        select * from tbl_blog where id in (select blogId from tbl_blog_tag_relation where tagId=#{id})
+    </select>
+    <select id="getYear" resultType="string">
+        select year from tbl_blog group by year order by year desc
+    </select>
+    <select id="getBlogByYear" resultType="com.wyx.blog.domain.Blog">
+        select * from tbl_blog where year=#{id}
+    </select>
+    <select id="getBlogCount" resultType="int">
+        select count(*) from tbl_blog
+    </select>
 </mapper>

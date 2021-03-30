@@ -80,26 +80,29 @@
                         java
                     </div>
                 </div>
-                <!--赞赏功能-->
+                <div th:if="${blog.appreciate}">
+                    <!--赞赏功能-->
                     <div class="ui segment center aligned basic">
                         <button id=payButton class="ui basic red button circular">赞赏</button>
                     </div>
-                <!--微信和支付宝-->
-                <div class="ui payQR flowing popup transition hidden">
-                    <div class="ui small images">
-                        <div class="image">
-                            <img class="rounded bordered image" th:src="@{/images/wechat.jpg}" src="/images/wechat.jpg" style="width: 120px">
-                            <div>微信</div>
-                        </div>
-                        <div class="image">
-                            <img class="rounded bordered image" th:src="@{/images/wechat.jpg}" src="/images/wechat.jpg" style="width: 120px">
-                            <div>支付宝</div>
+                    <!--微信和支付宝-->
+                    <div class="ui payQR flowing popup transition hidden">
+                        <div class="ui small images">
+                            <div class="image">
+                                <img class="rounded bordered image" th:src="@{/images/wechat.jpg}" src="/images/wechat.jpg" style="width: 120px">
+                                <div>微信</div>
+                            </div>
+                            <div class="image">
+                                <img class="rounded bordered image" th:src="@{/images/wechat.jpg}" src="/images/wechat.jpg" style="width: 120px">
+                                <div>支付宝</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                </div>
+
             <!--博客信息-->
-            <div class="ui message positive attached">
+            <div class="ui message positive attached" th:if="${blog.shareStatement }">
                 <div class="ui grid middle aligned">
                     <div class="ui eleven wide column">
                         <div class="list ">
@@ -114,7 +117,7 @@
                     </div>
                 </div>
             </div>
-            <div  class="ui bottom attached segment">
+            <div  class="ui bottom attached segment" th:if="${blog.commentabled}">
             <!--留言区域列表-->
                 <div id="comment-container" class="ui teal segment">
                     <div th:fragment="commentList">

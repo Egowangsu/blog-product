@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -69,7 +70,7 @@ public class IndexController {
             String newUpdateTime=blog.getUpdateTime().substring(0, 10);  //修改更新日期的格式
             blog.setUpdateTime(newUpdateTime);
         }
-         public void setBlog2(Blog blog){    //将用户信息，分类名称和更改后的日期放入博客中
+         public void setBlog2(Blog blog){    //将用户信息，分类名称和更改后的日期格式放入博客中
         blog.setUser(userService.getUser());
         Type type=typeService.getType(Integer.valueOf(blog.getTypeId()));
         blog.setTypeName(type.getName());

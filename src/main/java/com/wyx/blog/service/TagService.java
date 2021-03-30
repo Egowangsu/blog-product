@@ -27,4 +27,5 @@ public interface TagService {
     //根据博客数量选取最多的前i个标签
     List<Tag> listTagTop(Integer i);
     List<Tag> getTagList(Integer id);
+
 }

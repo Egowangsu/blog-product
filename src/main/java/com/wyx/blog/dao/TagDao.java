@@ -27,4 +27,5 @@ public interface TagDao {
     List<Tag> listTagTop(Integer size);
 
     List<Tag> getTagList(Integer id);
+
 }

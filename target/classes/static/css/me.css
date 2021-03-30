@@ -65,7 +65,9 @@ body{
     margin-bottom: 0.3em !important;
     margin-right: 3em !important;
 }
-
+.m-margin-right-small{
+    margin-right:0.1em!important;
+}
 .m-margin-top-small{
     margin-top: 0.5em!important;
 }

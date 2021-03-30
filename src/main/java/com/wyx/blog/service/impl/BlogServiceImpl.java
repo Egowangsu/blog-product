@@ -12,7 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 @Service
 public class BlogServiceImpl implements BlogService {
     @Resource
@@ -35,6 +38,7 @@ public class BlogServiceImpl implements BlogService {
         blog.setCreateTime(MyDate.getDate());
         blog.setUpdateTime(MyDate.getDate());
         blog.setViews(0);
+        blog.setYear(blog.getUpdateTime().substring(0,4));
         System.out.println(blog);
         return blogDao.saveBlog(blog);
     }
@@ -91,5 +95,35 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public void updateViews(Integer id) {
         blogDao.updateViews(id);
+    }
+
+    @Override
+    public List<Blog> getBlogByTypeId(Integer id) {
+        return blogDao.getBlogByTypeId(id);
+    }
+
+    @Override
+    public List<Blog> getBlogByTagId(Integer id) {
+        return blogDao.getBlogByTagId(id);
+    }
+
+    @Override
+    public Map<String, List<Blog>> archiveBLog() {
+        //先拿到全部年份
+        List<String> yearList=blogDao.getYear();
+        Map<String,List<Blog>> archiveMap=new HashMap<>();
+        for(String year:yearList){
+            List<Blog> list=blogDao.getBlogByYear(year);
+            for(Blog blog:list){
+                blog.setUpdateTime2(blog.getUpdateTime().substring(0, 10));
+            }
+            archiveMap.put(year,list);
+        }
+        return archiveMap;
+    }
+
+    @Override
+    public Integer getBlogCount() {
+        return blogDao.getBlogCount();
     }
 }

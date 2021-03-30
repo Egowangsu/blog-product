@@ -25,6 +25,7 @@ private Integer userId;
 private List<Tag> tag;
 private String tagIds;
 private String typeName;
+private String  year;
     public Blog() {
     }
 
@@ -50,6 +51,14 @@ private String typeName;
         this.tag = tag;
         this.tagIds = tagIds;
         this.typeName = typeName;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
     }
 
     public String getTypeName() {

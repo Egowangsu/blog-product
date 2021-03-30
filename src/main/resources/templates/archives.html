@@ -45,105 +45,28 @@
                        <div class="ui teal header">归档</div>
                    </div>
                    <div class="right aligned column">
-                       共 <h2 class="ui orange header m-line-block m-text-thin">999</h2> 篇博客
+                       共 <h2 class="ui orange header m-line-block m-text-thin" th:text="${blogCount}">999</h2> 篇博客
                    </div>
                </div>
            </div>
-           <div class="ui center aligned header red"><h1>2021</h1></div>
-           <div class="ui fluid vertical menu">
-               <a href="#" target="_blank" class="item">
-                   <span>
-                   <i class="mini teal circle icon"></i> 关于如何学好java
-                        <div class="ui teal left pointing label basic m-padded-tb-mini">10月1日</div>
-                   </span>
-                   <div class="ui orange left pointing label basic m-padded-tb-mini">原创</div>
-               </a>
-               <a href="#" target="_blank" class="item">
-                   <span>
-                   <i class="mini teal circle icon"></i> 关于如何学好java
-                        <div class="ui teal left pointing label basic m-padded-tb-mini">10月1日</div>
-                   </span>
-                   <div class="ui orange left pointing label basic m-padded-tb-mini">原创</div>
-               </a>
-               <a href="#" target="_blank" class="item">
-                   <span>
-                   <i class="mini teal circle icon"></i> 关于如何学好java
-                        <div class="ui teal left pointing label basic m-padded-tb-mini">10月1日</div>
-                   </span>
-                   <div class="ui orange left pointing label basic m-padded-tb-mini">原创</div>
-               </a>
-               <a href="#" target="_blank" class="item">
-                   <span>
-                   <i class="mini teal circle icon"></i> 关于如何学好java
-                        <div class="ui teal left pointing label basic m-padded-tb-mini">10月1日</div>
-                   </span>
-                   <div class="ui orange left pointing label basic m-padded-tb-mini">原创</div>
-               </a>
-               <a href="#" target="_blank" class="item">
-                   <span>
-                   <i class="mini teal circle icon"></i> 关于如何学好java
-                        <div class="ui teal left pointing label basic m-padded-tb-mini">10月1日</div>
-                   </span>
-                   <div class="ui orange left pointing label basic m-padded-tb-mini">原创</div>
-               </a>
-               <a href="#" target="_blank" class="item">
-                   <span>
-                   <i class="mini teal circle icon"></i> 关于如何学好java
-                        <div class="ui teal left pointing label basic m-padded-tb-mini">10月1日</div>
-                   </span>
-                   <div class="ui orange left pointing label basic m-padded-tb-mini">原创</div>
-               </a>
-           </div>
-           <div class="ui center aligned header red"><h1>2020</h1></div>
-           <div class="ui fluid vertical menu">
-               <a href="#" target="_blank" class="item">
-                   <span>
-                   <i class="mini teal circle icon"></i> 关于如何学好java
-                        <div class="ui teal left pointing label basic m-padded-tb-mini">10月1日</div>
-                   </span>
-                   <div class="ui orange left pointing label basic m-padded-tb-mini">原创</div>
-               </a>
-               <a href="#" target="_blank" class="item">
-                   <span>
-                   <i class="mini teal circle icon"></i> 关于如何学好java
-                        <div class="ui teal left pointing label basic m-padded-tb-mini">10月1日</div>
-                   </span>
-                   <div class="ui orange left pointing label basic m-padded-tb-mini">原创</div>
-               </a>
-               <a href="#" target="_blank" class="item">
-                   <span>
-                   <i class="mini teal circle icon"></i> 关于如何学好java
-                        <div class="ui teal left pointing label basic m-padded-tb-mini">10月1日</div>
-                   </span>
-                   <div class="ui orange left pointing label basic m-padded-tb-mini">原创</div>
-               </a>
-               <a href="#" target="_blank" class="item">
-                   <span>
-                   <i class="mini teal circle icon"></i> 关于如何学好java
-                        <div class="ui teal left pointing label basic m-padded-tb-mini">10月1日</div>
-                   </span>
-                   <div class="ui orange left pointing label basic m-padded-tb-mini">原创</div>
-               </a>
-               <a href="#" target="_blank" class="item">
-                   <span>
-                   <i class="mini teal circle icon"></i> 关于如何学好java
-                        <div class="ui teal left pointing label basic m-padded-tb-mini">10月1日</div>
-                   </span>
-                   <div class="ui orange left pointing label basic m-padded-tb-mini">原创</div>
-               </a>
-               <a href="#" target="_blank" class="item">
-                   <span>
-                   <i class="mini teal circle icon"></i> 关于如何学好java
-                        <div class="ui teal left pointing label basic m-padded-tb-mini">10月1日</div>
-                   </span>
-                   <div class="ui orange left pointing label basic m-padded-tb-mini">原创</div>
-               </a>
-           </div>
-       </div>
+           <th:block th:each="item : ${archiveMap}">
+               <h2  class="ui center aligned header orange" th:text="${item.key}">2020</h2>
+                <div class="ui fluid vertical menu">
+                 <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item" th:each="blog : ${item.value}">
+                <span>
+                    <i class="mini teal circle icon">   </i >   <span th:text="${blog.title}"></span>
+                    <div class="ui teal basic left pointing label m-padded-mini " th:text="${blog.updateTime2}">9月03日</div>
+                </span>
+                    <div class="ui orange basic left pointing label m-padded-mini " th:text="${blog.flag}">原创</div>
+                </a>
+               </div>
+           </th:block>
+
+         </div>
     </div>
 
 <!--底部footer-->
-    <footer class="ui inverted vertical segment m-padded-tb-massive"> <!--vertical和attached效果差不多，把圆角弄直，它是垂直的意思-->
+    <footer class="ui inverted vertical  segment m-padded-tb-massive"> <!--vertical和attached效果差不多，把圆角弄直，它是垂直的意思-->
        <div class="ui  container" align="center" >  <!--一个容器-->
             <div class="ui inverted divided stackable grid">
                 <div class="three wide column">    <!--一排是十六份-->
