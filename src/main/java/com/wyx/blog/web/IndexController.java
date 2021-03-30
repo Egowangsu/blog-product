@@ -51,10 +51,13 @@ public class IndexController {
 
     @GetMapping("/blog/{id}")     //跳转到博客详情页
         public  String blog(@PathVariable("id") Integer id,Model model){
-        Blog blog=blogService.getAndConvert(id);
+        Blog blog=blogService.getAndConvert(id);  //markdown,html格式转换
         setBlog2(blog);
         getTags(blog,model);  //将关联的标签拼接字符串返回给前端详情页
+        blogService.updateViews(id);   //每访问一次博客，就刷新一次查阅数量
+        System.out.println(blog.getViews());
         model.addAttribute("blog",blog);
+
         return "blogDetail";
         }
 

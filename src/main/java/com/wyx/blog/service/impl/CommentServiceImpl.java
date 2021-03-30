@@ -19,8 +19,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<Comment> listCommentsByBlogId(Integer blogId) {
         List<Comment> commentsList=commentDao.listCommentsByBlogId(blogId);  //拿到所有顶级节点，就是没有父节点的
-
-        return eachComment(commentsList);
+       return eachComment(commentsList);
     }
 
     @Override
@@ -62,6 +61,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
         public List<Comment> combineChildren(List<Comment> commentsView){ //获得第一层的子节点
+            topCommend=new ArrayList<>();
             for (Comment c:commentsView){
                 List<Comment> list=c.getReplyComment();  //判断他是否有子节点，有就把子节点的集合传到下一层循环中
                 if(list.size()>0){

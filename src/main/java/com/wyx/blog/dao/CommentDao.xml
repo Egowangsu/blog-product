@@ -16,6 +16,7 @@ namespace ：必须有值，自定义的唯一字符串
         <result column="createTime"  property="createTime"/>
         <result column="blogId"  property="blogId"/>
         <result column="parentCommentId"  property="parentCommentId"/>
+        <result column="adminComment"  property="adminComment"/>
         <association property="blog" javaType="com.wyx.blog.domain.Blog">
             <id column="id" property="id"/>
             <result column="title" property="title"/>
@@ -43,6 +44,7 @@ namespace ：必须有值，自定义的唯一字符串
             <result column="rcreateTime"  property="createTime"/>
             <result column="rblogId"  property="blogId"/>
             <result column="id"  property="parentCommentId"/>
+            <result column="radminComment"  property="adminComment"/>
         </collection>
     </resultMap>
 <select id="listCommentsByBlogId" resultMap="res">
@@ -55,6 +57,7 @@ namespace ：必须有值，自定义的唯一字符串
         s.createTime,
         s.blogId,
         s.parentCommentId,
+        s.adminComment,
         r.id as rid,
         r.nickName as rnickName,
         r.email as remail,
@@ -63,6 +66,7 @@ namespace ：必须有值，自定义的唯一字符串
         r.createTime as rcreateTime,
         r.blogId as rblogId,
         r.parentCommentId as rparentCommentId,
+        r.adminComment as radminComment,
         b.id ,
         b.title,
         b.content,
@@ -95,7 +99,8 @@ namespace ：必须有值，自定义的唯一字符串
         avatar,
         createTime,
         blogId,
-        parentCommentId
+        parentCommentId,
+        adminComment
         )values(
         #{id},
         #{nickName},
@@ -104,7 +109,8 @@ namespace ：必须有值，自定义的唯一字符串
         #{avatar},
         #{createTime},
         #{blogId},
-        #{parentCommentId}
+        #{parentCommentId},
+        #{adminComment}
         )
     </insert>
     <select id="getSonCommentByParentId" resultType="com.wyx.blog.domain.Comment">

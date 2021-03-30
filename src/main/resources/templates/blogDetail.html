@@ -120,12 +120,16 @@
                     <div th:fragment="commentList">
                         <div  class="ui  threaded comments" style="max-width: 100%">
                             <h3 class="ui dividing header">评论</h3>
-                            <div class="comment" th:each="comment:${comments}">
+                            <div class="comment" th:each="comment:${comments}" id="editor">
                                 <a class="avatar">
                                     <img src="/images/bk.jpg" th:src="@{${comment.avatar}}">
                                 </a>
                                 <div class="content">
-                                    <a class="author" th:text="${comment.nickName}">Matt</a>
+                                    <a class="author" >
+                                        <span th:text="${comment.nickName}">Matt</span>
+                                        <div class="ui label basic red mini m-padded-tb-mini" th:if="${comment.adminComment}">管理员</div>
+                                        <div class="ui label basic teal mini m-padded-tb-mini"th:if="${comment.adminComment}!=true" >游客</div>
+                                    </a>
                                     <div class="metadata">
                                         <span class="date" th:text="${comment.createTime}">今天下午 5:42</span>
                                     </div>
@@ -141,7 +145,10 @@
                                         </a>
                                         <div class="content">
                                             <a class="author" >
-                                                <span th:text="${reply.nickName}">&nbsp;</span><span th:text="|@ ${reply.parentComment.nickName}|" class="m-teal"></span>
+                                                <span th:text="${reply.nickName}">小红</span>
+                                                <div class="ui label basic red mini m-padded-tb-mini" th:if="${reply.adminComment}">管理员</div>
+                                                <div class="ui label basic teal mini m-padded-tb-mini"th:if="${reply.adminComment}!=true" >游客</div>
+                                                &nbsp;<span th:text="|@ ${reply.parentComment.nickName}|" class="m-teal"></span>
                                             </a>
                                             <div class="metadata">
                                                 <span class="date" th:text="${reply.createTime}">今天下午 5:42</span>
@@ -170,13 +177,13 @@
                         <div class="field m-mobile-wide m-margin-bottom-mini">
                             <div class="ui left icon input">
                                 <i class="user icon"></i>
-                                <input type="text" name="nickName" placeholder="姓名">
+                                <input type="text" name="nickName" placeholder="姓名" th:value="${session.user}!=null ? ${session.user.nickName}:''">
                             </div>
                         </div>
                         <div class="field m-mobile-wide m-margin-bottom-mini">
                             <div class="ui left icon input">
                                     <i class="mail icon"></i>
-                                <input type="email" name="email" placeholder="邮箱地址" >
+                                <input type="email" name="email"   placeholder="邮箱地址" th:value="${session.user}!=null ? ${session.user.email}:''"  >
                             </div>
                         </div>
                         <div class="field m-mobile-wide m-margin-bottom-mini">
@@ -348,7 +355,6 @@ $("#commentPost-btn").click(function () {
 })
 
     $(function () {   //详情页面加载完毕后，自动刷新评论区域，读取评论
-
         $("#comment-container").load(/*[[@{/comments/{id}(id=${blog.id})}]]*/"");
     });
 
@@ -359,8 +365,8 @@ $("#commentPost-btn").click(function () {
             "nickName": $("[name='nickName']").val(),
             "email"   : $("[name='email']").val(),
             "content" : $("[name='content']").val()
-            //"content" : document.getElementById("commentEditor").innerHTML
         },function (responseTxt, statusTxt, xhr) {
+            document.getElementById("comment-container").scrollIntoView();   //跳转到某一元素上
             clearContent();
         });
     }

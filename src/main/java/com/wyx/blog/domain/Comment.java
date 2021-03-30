@@ -14,6 +14,7 @@ public class Comment {
     private Integer parentCommentId;//父类的Id
     private Comment parentComment;    //父类对象
     private List<Comment> replyComment;  //所有回复他的对象集合
+    private boolean adminComment;  //管理员标记
     public Comment() {
     }
 
@@ -32,6 +33,13 @@ public class Comment {
         this.replyComment = replyComment;
     }
 
+    public boolean isAdminComment() {
+        return adminComment;
+    }
+
+    public void setAdminComment(boolean adminComment) {
+        this.adminComment = adminComment;
+    }
 
     public List<Comment> getReplyComment() {
         return replyComment;
@@ -127,12 +135,15 @@ public class Comment {
                 "id=" + id +
                 ", nickName='" + nickName + '\'' +
                 ", email='" + email + '\'' +
+                ", content='" + content + '\'' +
                 ", avatar='" + avatar + '\'' +
                 ", createTime='" + createTime + '\'' +
                 ", BlogId=" + BlogId +
+                ", blog=" + blog +
                 ", parentCommentId=" + parentCommentId +
                 ", parentComment=" + parentComment +
                 ", replyComment=" + replyComment +
+                ", adminComment=" + adminComment +
                 '}';
     }
 }

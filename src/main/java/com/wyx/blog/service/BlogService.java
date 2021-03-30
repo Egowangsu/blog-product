@@ -24,4 +24,6 @@ public interface BlogService {
 
     List<Blog> getBlogsBySearch(String query);
     Blog getAndConvert(Integer id);  //转换博客内容格式
+
+    void updateViews(Integer id);
 }

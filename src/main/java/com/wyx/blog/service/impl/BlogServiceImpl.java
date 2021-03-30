@@ -75,15 +75,21 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public Blog getAndConvert(Integer id) {
+    public Blog getAndConvert(Integer id) {  //格式转换，将数据库中markdown格式的博客内容拿出来，转换成html格式展示页面
         Blog blog=blogDao.getBlog(id);
         if (blog==null){
             throw new NotFoundException("博客不存在");
         }
         Blog b = new Blog();
-        MyBeanUtils.copyPropertiesIgnoreNull(blog, b);  //copy blog的值到b
+        MyBeanUtils.copyPropertiesIgnoreNull(blog, b);  //copy blog的值到b,为了防止修改元数据库中的信息
         String content =b.getContent();
         b.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
         return b;
+    }
+
+    @Transactional
+    @Override
+    public void updateViews(Integer id) {
+        blogDao.updateViews(id);
     }
 }

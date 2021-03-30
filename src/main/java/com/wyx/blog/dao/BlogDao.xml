@@ -113,4 +113,10 @@ namespace ：必须有值，自定义的唯一字符串
         where content like '%' #{query} '%' or title like  '%' #{query} '%'
 
     </select>
+    <!--更新访客数量-->
+    <update id="updateViews">
+        update tbl_blog
+        set views=views+1
+        where id=#{id}
+    </update>
 </mapper>
