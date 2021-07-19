@@ -1,5 +1,6 @@
 package com.wyx.blog.web;
 
+import com.fasterxml.jackson.core.JsonToken;
 import com.wyx.blog.domain.Blog;
 import com.wyx.blog.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ public class ArchiveController {
         Integer blogCount=blogService.getBlogCount();
         model.addAttribute("blogCount",blogCount);
         model.addAttribute("archiveMap",blogService.archiveBLog());
+        System.out.println("博客数量"+blogCount);
+        System.out.println("博客本身"+blogService.archiveBLog());
         return "archives";
     }
 }

@@ -1,6 +1,7 @@
 package com.wyx.blog.service.impl;
 
 import com.wyx.blog.dao.BlogDao;
+import com.wyx.blog.dao.TagDao;
 import com.wyx.blog.domain.Blog;
 import com.wyx.blog.exception.NotFoundException;
 import com.wyx.blog.service.BlogService;
@@ -20,6 +21,8 @@ import java.util.Map;
 public class BlogServiceImpl implements BlogService {
     @Resource
     private BlogDao blogDao;
+    @Resource
+    private TagDao tagDao;
     @Override
     public Blog getBlog(Integer id) {
        return  blogDao.getBlog(id);
@@ -50,12 +53,15 @@ public class BlogServiceImpl implements BlogService {
         }
 
         blog.setUpdateTime(MyDate.getDate());
+        blog.setViews(0);
         return blogDao.updateBlog(id,blog);
     }
     @Transactional
     @Override
     public void deleteBlog(Integer id) {
             blogDao.deleteBlog(id);
+            tagDao.deleteTagAndBlogRelation(id);
+
     }
 
     @Override

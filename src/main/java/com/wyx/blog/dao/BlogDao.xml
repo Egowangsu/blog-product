@@ -14,6 +14,7 @@ namespace ：必须有值，自定义的唯一字符串
             title,
             content,
             picture,
+            flag,
             views,
             appreciate,
             shareStatement,
@@ -23,6 +24,7 @@ namespace ：必须有值，自定义的唯一字符串
             createTime,
             updateTime,
             description,
+            year,
             typeId,
             userId
            ) values(
@@ -30,6 +32,7 @@ namespace ：必须有值，自定义的唯一字符串
             #{title},
             #{content},
             #{picture},
+            #{flag},
             #{views},
             #{appreciate},
             #{shareStatement},
@@ -39,6 +42,7 @@ namespace ：必须有值，自定义的唯一字符串
             #{createTime},
             #{updateTime},
             #{description},
+            #{year},
             #{typeId},
             #{userId}
            )
@@ -103,10 +107,10 @@ namespace ：必须有值，自定义的唯一字符串
         select count(*)  from tbl_blog
     </select>
     <select id="getAllBlogs" resultType="com.wyx.blog.domain.Blog">
-        select * from tbl_blog
+        select * from tbl_blog where published=true
     </select>
     <select id="listBlogTop" resultType="com.wyx.blog.domain.Blog">
-        select * from tbl_blog order by updateTime desc limit 0,#{size}
+        select * from tbl_blog where published=true order by updateTime desc limit 0,#{size}
     </select>
     <select id="getBlogsBySearch" resultType="com.wyx.blog.domain.Blog">
         select * from tbl_blog
@@ -126,12 +130,12 @@ namespace ：必须有值，自定义的唯一字符串
         select * from tbl_blog where id in (select blogId from tbl_blog_tag_relation where tagId=#{id})
     </select>
     <select id="getYear" resultType="string">
-        select year from tbl_blog group by year order by year desc
+        select year from tbl_blog where published=true group by year order by year desc
     </select>
     <select id="getBlogByYear" resultType="com.wyx.blog.domain.Blog">
-        select * from tbl_blog where year=#{id}
+        select * from tbl_blog where year=#{id} and published=true
     </select>
     <select id="getBlogCount" resultType="int">
-        select count(*) from tbl_blog
+        select count(*) from tbl_blog where published=true
     </select>
 </mapper>

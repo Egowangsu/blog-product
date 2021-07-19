@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.management.Query;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Arrays;
@@ -36,8 +37,6 @@ public class BlogController {
         //传入页码(想调用第几页的数据)以及每页的大小
         PageHelper.startPage(pn,4);
         //startPage后面紧跟的查询就是分页查询
-        System.out.println("==============================");
-        System.out.println("blog:"+blog);
         List<Blog> blogs=blogService.listPage(blog);
         //用pageInfo对结果进行包装，里面封装了各种属性
         model.addAttribute("types",typeService.listPage());
@@ -89,15 +88,16 @@ public class BlogController {
 
         //新增时候的提交博客
     @PostMapping("/blogs")
-    public String post(Blog blog, HttpSession session, RedirectAttributes attributes, HttpServletRequest request){
-        String flag=request.getParameter("flag");
-        System.out.println("===============================================:"+flag);
+    public String post(Blog blog,  RedirectAttributes attributes, HttpServletRequest request){
+        System.out.println(
+                "==================="+blog.getFlag()
+        );
         if(blog.getId()!=null){   //如果传过来的blog有id，则是修改
             blog.setTypeId(request.getParameter("type.id"));  //博客的分类id
             //存入标签关系前先把原来的关系清空
             tagService.deleteTagAndBlogRelation(blog.getId());
             String str=request.getParameter("tagIds");
-            if(!"".equals(str)){   //当标签id不为空才加上关系
+            if(!"".equals(str)&&blog.isPublished()){   //当标签id不为空才加上关系
                 List<String> list = Arrays.asList(str.split(","));
                 for(String res:list){
                     //将博客和标签关系存入
@@ -126,7 +126,7 @@ public class BlogController {
         blog.setUserId(1);   //博客所属者id
         blog.setTypeId(request.getParameter("type.id"));  //博客的分类id
         String str=request.getParameter("tagIds");
-        if(!"".equals(str)){
+        if(!"".equals(str)&&blog.isPublished()){
             List<String> list = Arrays.asList(str.split(","));
             for(String res:list){
                 //将博客和标签关系存入

@@ -9,7 +9,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <!--引入Semantic.js-->
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-    <link rel="stylesheet" href="/css/me.css"> <!--引入的css样式,里面可以定义背景-->
+    <link rel="stylesheet" href="/css/me3.css"> <!--引入的css样式,里面可以定义背景-->
+    <link rel="stylesheet" href="/css/animate-3.4.0.css">
+    <!--引入动画效果的css-->
 </head>
 <body>
 <!--导航-->
@@ -17,16 +19,18 @@
         <div class="ui container"> <!--位置偏移-->
             <div class="ui inverted secondary stackable menu" >
                 <h2 class="ui teal header item">Blog</h2>
-                <a href="#" class="m-item item m-mobile-hide"><i class="mini home icon m-style" ></i>首页</a>
-                <a href="#" class="m-item item m-mobile-hide"><i class="mini idea icon m-style"></i>分类</a>
-                <a href="#" class="m-item item m-mobile-hide"><i class="mini tags icon m-style"></i>标签</a>
-                <a href="#" class="m-item item m-mobile-hide"><i class="mini clone icon m-style"></i>归档</a >
-                <a href="#" class="m-item active item m-mobile-hide"><i class="mini info icon m-style"></i>关于我</a >
+                <a href="#" th:href="@{/}" class="m-item  item m-mobile-hide"><i class="mini  home icon m-style" ></i>首页</a>
+                <a href="#" th:href="@{/types/-1}" class="m-item item m-mobile-hide"><i class="mini idea icon m-style"></i>分类</a>
+                <a href="#" th:href="@{/tags/-1}" class="m-item item m-mobile-hide"><i class="mini tags icon m-style"></i>标签</a>
+                <a href="#" th:href="@{/archives}" class="m-item item m-mobile-hide"><i class="mini clone icon m-style"></i>归档</a >
+                <a href="#" th:href="@{/user/about}" class="m-item  active item m-mobile-hide"><i class="mini info active icon m-style"></i>关于我</a >
                 <div class="right item">  <!--靠右-->
-                    <div class="ui m-item icon input  m-mobile-hide ">
-                        <input type="text" placeholder="搜索内容">
-                        <i class="inverted circular search link icon"></i>
-                    </div>
+                    <form  name="search" action="#" th:action="@{/search}" target="_self"  method="post">
+                        <div class="ui m-item icon input  m-mobile-hide ">
+                            <i  onclick="document.forms['search'].submit()" class=" inverted circular search link icon" ></i>
+                            <input name="query" type="text" placeholder="搜索内容">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -36,11 +40,11 @@
     </nav>
 
 <!--中间内容-->
-    <div class="m-padded-tb-big m-container-small ">
+    <div class="m-padded-tb-big m-container-small animated fadeInDown">
         <div class="ui container">
             <div class="ui stackable grid">
                 <div class="eleven wide column">
-                        <img src="/images/bk2.jpg" alt="" class="ui rounded image" >
+                        <img src="/images/bk.jpg" alt="" class="ui rounded image" >
                 </div>
                 <div class="five wide column">
                     <div class="ui top attached segment">
@@ -53,10 +57,10 @@
                     <p class="m-text-thin">正在琢磨java技术，探索高效的学习方法</p>
                     </div>
                     <div class="ui attached segment">
-                        <div class="ui basic orange label">阅读</div>
-                        <div class="ui basic teal label">摄影</div>
-                        <div class="ui basic purple label">编程</div>
-                        <div class="ui basic green label">旅行</div>
+                        <div class="ui basic orange label ">阅读</div>
+                        <div class="ui basic teal label ">摄影</div>
+                        <div class="ui basic purple label ">编程</div>
+                        <div class="ui basic green label ">旅行</div>
                     </div>
                     <div class="ui attached segment m-margin">
                         <div class="ui basic orange label right pointing m-margin-bottom-mini">java</div>
@@ -66,8 +70,9 @@
                         <div class="ui basic orange label right pointing m-margin-bottom-mini">Dubbo</div>
                         <div class="ui basic orange label right pointing m-margin-bottom-mini">...</div>
                     </div>
+
                     <div class="ui bottom attached segment">
-                        <a href="#" class="ui circular icon button"><i class="github icon"></i></a>
+                        <a href="http://www.github.com" class="ui circular icon button"><i class="github icon"></i></a>
                         <a href="#" class="ui qq circular icon button" data-content="840891990"><i class="qq icon"></i></a>
                         <a href="#" class="ui  wechat circular icon button"><i class="weixin icon"></i></a>
                     </div>
@@ -78,7 +83,12 @@
             </div>
         </div>
     </div>
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <!--底部footer-->
     <footer class="ui inverted vertical segment m-padded-tb-massive"> <!--vertical和attached效果差不多，把圆角弄直，它是垂直的意思-->
        <div class="ui  container" align="center" >  <!--一个容器-->
@@ -91,11 +101,11 @@
                         </div>
                 </div>
                 <div class="three wide column">
-                    <h4 class="ui inverted header">Blog</h4>
+                    <h4 class="ui inverted header">网站推荐</h4>
                     <div class="ui inverted link list">
-                        <a href="http://www.xvideos.com" class="item">www.xvideos.com</a>
-                        <a href="http://www.youjizz.com" class="item">www.youjizz.com</a>
-                        <a href="http://>www.pornhub.com" class="item">www.pornhub.com</a>
+                        <a href="http://www.github.com" class="item">www.github.com</a>
+                        <a href="https://www.runoob.com" class="item">www.runoob.com</a>
+                        <a href="https://www.bilibili.com/" class="item">www.bilibili.com</a>
                     </div>
                 </div>
                 <div class="three wide column">

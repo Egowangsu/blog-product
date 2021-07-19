@@ -17,11 +17,11 @@
         <div class="ui container"> <!--位置偏移-->
             <div class="ui inverted secondary stackable menu" >
                 <h2 class="ui teal header item">Blog</h2>
-                <a href="#" th:href="@{/}" class="m-item item m-mobile-hide"><i class="mini home icon m-style" ></i>首页</a>
-                <a href="#" class="m-item item m-mobile-hide"><i class="mini idea icon m-style"></i>分类</a>
-                <a href="#" class="m-item  item m-mobile-hide"><i class="mini tags icon m-style"></i>标签</a>
-                <a href="#" class="m-item item m-mobile-hide"><i class="mini clone icon m-style"></i>归档</a >
-                <a href="#" class="m-item item m-mobile-hide"><i class="mini info icon m-style"></i>关于我</a >
+                <a href="#" th:href="@{/}" class="m-item  active item m-mobile-hide"><i class="mini   home icon m-style" ></i>首页</a>
+                <a href="#" th:href="@{/types/-1}" class="m-item item m-mobile-hide"><i class="mini idea icon m-style"></i>分类</a>
+                <a href="#" th:href="@{/tags/-1}" class="m-item item m-mobile-hide"><i class="mini tags icon m-style"></i>标签</a>
+                <a href="#" th:href="@{/archives}" class="m-item item m-mobile-hide"><i class="mini clone icon m-style"></i>归档</a >
+                <a href="#" th:href="@{/user/about}" class="m-item item m-mobile-hide"><i class="mini info icon m-style"></i>关于我</a >
                 <div class="right item">  <!--靠右-->
                     <form  name="search" action="#" th:action="@{/search}" target="_self"  method="post">
                         <div class="ui m-item icon input  m-mobile-hide ">
@@ -122,11 +122,11 @@
                         </div>
                 </div>
                 <div class="three wide column">
-                    <h4 class="ui inverted header">Blog</h4>
+                    <h4 class="ui inverted header">网站推荐</h4>
                     <div class="ui inverted link list">
-                        <a href="http://www.xvideos.com" class="item">www.xvideos.com</a>
-                        <a href="http://www.youjizz.com" class="item">www.youjizz.com</a>
-                        <a href="http://>www.pornhub.com" class="item">www.pornhub.com</a>
+                        <a href="http://www.github.com" class="item">www.github.com</a>
+                        <a href="https://www.runoob.com" class="item">www.runoob.com</a>
+                        <a href="https://www.bilibili.com/" class="item">www.bilibili.com</a>
                     </div>
                 </div>
                 <div class="three wide column">
